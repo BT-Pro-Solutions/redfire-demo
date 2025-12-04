@@ -140,7 +140,7 @@ const showRemoveConfirm = ref(false)
 const widgetToRemove = ref(null)
 
 const calculateRowHeight = () => {
-  const containerHeight = window.innerHeight - 200
+  const containerHeight = Math.max(window.innerHeight - 200, 600)
   const padding = 48
   const gaps = 48
   return Math.floor((containerHeight - padding - gaps) / 3)
@@ -278,6 +278,7 @@ onMounted(() => {
   pointer-events: none;
   z-index: 10;
   height: 100%;
+  min-height: 600px;
 }
 
 .grid-item-wrapper {

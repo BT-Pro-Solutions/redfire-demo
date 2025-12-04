@@ -171,7 +171,7 @@ const route = useRoute()
 const mobileMenuOpen = ref(false)
 
 const user = ref({
-  name: 'Demo User',
+  name: 'Sarah Mitchell',
   email: 'demo@redfire.com',
   role: 'Admin'
 })

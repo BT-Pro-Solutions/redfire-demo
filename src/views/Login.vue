@@ -87,7 +87,7 @@ const handleLogin = () => {
   // Demo login - just store a user object
   const user = {
     email: email.value,
-    name: 'Demo User',
+    name: 'Sarah Mitchell',
     role: 'Admin'
   }
   
