@@ -1,13 +1,13 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-// https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [vue()],
   resolve: {
     alias: {
       '@': '/src'
     }
-  }
-})
+  },
+  base: command === 'build' ? '/redfire-demo/' : '/'
+}))
 
