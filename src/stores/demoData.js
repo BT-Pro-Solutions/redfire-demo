@@ -5,7 +5,7 @@ export const useDemoDataStore = defineStore('demoData', {
     currentUser: {
       name: 'Sarah Mitchell',
       title: 'Store Manager',
-      image: '/src/images/avatar.png'
+      image: '/avatar.png'
     },
 
     weeklyPayments: [

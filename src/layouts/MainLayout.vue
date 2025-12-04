@@ -147,7 +147,7 @@
                 <div class="text-xs text-gray-400">{{ user.role }}</div>
               </div>
               <button @click="handleLogout" class="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition flex-shrink-0 overflow-hidden">
-                <img src="/src/images/avatar.png" alt="User Avatar" class="w-full h-full object-cover" />
+                <img src="/avatar.png" alt="User Avatar" class="w-full h-full object-cover" />
               </button>
             </div>
           </div>
