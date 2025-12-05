@@ -4,7 +4,7 @@
       v-if="mobileMenuOpen"
       class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
       @click="mobileMenuOpen = false"
-      style="backdrop-filter: blur(4px);"
+      style="backdrop-filter: blur(2px);"
     ></div>
 
     <!-- Dark Sidebar -->
@@ -14,10 +14,10 @@
     >
       <div class="px-6 py-6 h-[88px] flex items-center">
         <div class="flex items-center space-x-3 md:justify-center lg:justify-start w-full">
-          <div class="w-10 h-10 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg">
+          <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg">
             <Icon icon="mdi:storefront" class="text-xl" />
           </div>
-          <span class="text-xl font-bold md:hidden lg:inline">TestCo</span>
+          <span class="text-xl font-bold md:hidden lg:inline">TestCorp</span>
         </div>
       </div>
 
@@ -25,7 +25,7 @@
         <router-link
           to="/"
           class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white/5 transition md:justify-center lg:justify-start"
-          :class="{ 'bg-gradient-to-r from-primary/20 to-purple-600/20 border-l-4 border-primary': $route.name === 'Dashboard' }"
+          :class="{ 'bg-primary border-l-4 border-primary': $route.name === 'Dashboard' }"
         >
           <Icon icon="mdi:view-dashboard" class="text-xl flex-shrink-0" />
           <span class="md:hidden lg:inline">Dashboard</span>
@@ -36,15 +36,15 @@
             <Icon icon="mdi:package-variant" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline">Inventory</span>
           </div>
-          <router-link to="/inventory/categories" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-gradient-to-r from-primary/20 to-purple-600/20 text-white border-l-4 border-primary">
+          <router-link to="/inventory/categories" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-primary text-white border-l-4 border-primary">
             <Icon icon="mdi:shape" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Categories</span>
           </router-link>
-          <router-link to="/inventory/groups" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-gradient-to-r from-primary/20 to-purple-600/20 text-white border-l-4 border-primary">
+          <router-link to="/inventory/groups" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-primary text-white border-l-4 border-primary">
             <Icon icon="mdi:group" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Groups</span>
           </router-link>
-          <router-link to="/inventory/products" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-gradient-to-r from-primary/20 to-purple-600/20 text-white border-l-4 border-primary">
+          <router-link to="/inventory/products" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-primary text-white border-l-4 border-primary">
             <Icon icon="mdi:shopping" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Retail Products</span>
           </router-link>
@@ -55,11 +55,11 @@
             <Icon icon="mdi:account-cog" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline">Management</span>
           </div>
-          <router-link to="/management/customers" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-gradient-to-r from-primary/20 to-purple-600/20 text-white border-l-4 border-primary">
+          <router-link to="/management/customers" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-primary text-white border-l-4 border-primary">
             <Icon icon="mdi:account-group" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Customers</span>
           </router-link>
-          <router-link to="/management/users" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-gradient-to-r from-primary/20 to-purple-600/20 text-white border-l-4 border-primary">
+          <router-link to="/management/users" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-primary text-white border-l-4 border-primary">
             <Icon icon="mdi:account-multiple" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Users</span>
           </router-link>
@@ -70,15 +70,15 @@
             <Icon icon="mdi:cash-multiple" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline">Payment</span>
           </div>
-          <router-link to="/payment/cash" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-gradient-to-r from-primary/20 to-purple-600/20 text-white border-l-4 border-primary">
+          <router-link to="/payment/cash" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-primary text-white border-l-4 border-primary">
             <Icon icon="mdi:cash" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Cash</span>
           </router-link>
-          <router-link to="/payment/check" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-gradient-to-r from-primary/20 to-purple-600/20 text-white border-l-4 border-primary">
+          <router-link to="/payment/check" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-primary text-white border-l-4 border-primary">
             <Icon icon="mdi:checkbook" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Check</span>
           </router-link>
-          <router-link to="/payment/credit-card" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-gradient-to-r from-primary/20 to-purple-600/20 text-white border-l-4 border-primary">
+          <router-link to="/payment/credit-card" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-primary text-white border-l-4 border-primary">
             <Icon icon="mdi:credit-card" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Credit Card</span>
           </router-link>
@@ -93,7 +93,7 @@
             <Icon icon="mdi:cart-remove" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Canceled Purchases</span>
           </a>
-          <router-link to="/purchase/completed" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-gradient-to-r from-primary/20 to-purple-600/20 text-white border-l-4 border-primary">
+          <router-link to="/purchase/completed" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start" active-class="bg-primary text-white border-l-4 border-primary">
             <Icon icon="mdi:cart-check" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Completed Purchases</span>
           </router-link>

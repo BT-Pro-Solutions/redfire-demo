@@ -65,8 +65,7 @@ const handleSave = (data) => {
 <style scoped>
 .sidebar-backdrop {
   background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(1px);
 }
 
 .sidebar-content {
