@@ -1,7 +1,11 @@
 <template>
-  <div class="min-h-screen bg-dark-bg flex items-center justify-center p-4">
+  <div class="min-h-screen bg-dark-bg flex items-center justify-center p-4 relative" 
+  :style="{ backgroundImage: `url(${bgUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
+    <!-- Dark overlay -->
+    <div class="absolute inset-0 bg-black/40"></div>
+    
     <!-- Login Box -->
-    <div class="bg-white rounded-lg shadow-2xl w-full max-w-md p-8">
+    <div class="bg-white rounded-lg shadow-2xl w-full max-w-md p-8 relative z-10">
       <!-- Logo/Title Area -->
       <div class="text-center mb-8">
         <div class="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4">
@@ -74,7 +78,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
 
@@ -82,6 +86,27 @@ const router = useRouter()
 const email = ref('demo@redfire.com')
 const password = ref('password')
 const rememberMe = ref(false)
+
+const bgUrl = computed(() => localStorage.getItem('customBackground') || `${import.meta.env.BASE_URL}bg.avif`)
+
+onMounted(() => {
+  // Apply custom primary color if set
+  const savedColor = localStorage.getItem('primaryColor')
+  if (savedColor) {
+    const hexToRgb = (hex) => {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null
+    }
+    const rgb = hexToRgb(savedColor)
+    if (rgb) {
+      document.documentElement.style.setProperty('--color-primary-rgb', `${rgb.r} ${rgb.g} ${rgb.b}`)
+    }
+  }
+})
 
 const handleLogin = () => {
   // Demo login - just store a user object

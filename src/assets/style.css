@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-primary-rgb: 59 130 246; /* #3b82f6 as RGB */
+  }
+  
   body {
     @apply bg-dark-bg text-gray-900;
   }

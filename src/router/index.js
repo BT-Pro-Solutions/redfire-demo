@@ -62,6 +62,21 @@ const routes = [
         path: 'payment/credit-card',
         name: 'CreditCard',
         component: () => import('../views/payment/CreditCard.vue')
+      },
+      {
+        path: 'settings/account',
+        name: 'Account',
+        component: () => import('../views/settings/Account.vue')
+      },
+      {
+        path: 'settings/theme',
+        name: 'Theme',
+        component: () => import('../views/settings/Theme.vue')
+      },
+      {
+        path: 'support',
+        name: 'Support',
+        component: () => import('../views/Support.vue')
       }
     ]
   },

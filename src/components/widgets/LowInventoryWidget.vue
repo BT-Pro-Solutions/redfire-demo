@@ -29,7 +29,7 @@
       </div>
     </div>
     
-    <button class="mt-4 w-full py-2.5 bg-gradient-to-r from-blue-500 to-sky-500 hover:from-blue-600 hover:to-sky-600 text-white rounded-xl text-sm font-medium transition">
+    <button class="mt-4 w-full py-2.5 text-white rounded-xl text-sm font-medium transition hover:opacity-90" :style="`background-color: rgb(var(--color-primary-rgb))`">
       Reorder Items
     </button>
   </div>

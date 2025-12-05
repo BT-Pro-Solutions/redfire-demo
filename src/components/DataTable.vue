@@ -5,7 +5,8 @@
         <h2 class="text-xl md:text-2xl font-bold text-gray-900">{{ title }}</h2>
         <button 
           @click="$emit('add')"
-          class="px-3 py-2 md:px-4 md:py-2 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white rounded-xl transition flex items-center space-x-2"
+          class="px-3 py-2 md:px-4 md:py-2 text-white rounded-xl transition hover:opacity-90 flex items-center space-x-2"
+          :style="`background-color: rgb(var(--color-primary-rgb))`"
         >
           <Icon icon="mdi:plus" class="flex-shrink-0" />
           <span class="hidden sm:inline">Add {{ addButtonLabel }}</span>
@@ -58,7 +59,8 @@
               </button>
               <button 
                 @click="applyDateRange"
-                class="px-3 py-1.5 text-sm bg-gradient-to-r from-primary to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-primary transition"
+                class="px-3 py-1.5 text-sm text-white rounded-xl transition hover:opacity-90"
+                :style="`background-color: rgb(var(--color-primary-rgb))`"
               >
                 Apply
               </button>

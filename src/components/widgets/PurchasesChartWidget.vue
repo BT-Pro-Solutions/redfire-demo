@@ -54,6 +54,12 @@ const store = useDemoDataStore()
 const chartRef = ref(null)
 const chartKey = ref(0)
 
+// Get primary color from CSS variable
+const getPrimaryColor = () => {
+  const rgb = getComputedStyle(document.documentElement).getPropertyValue('--color-primary-rgb').trim()
+  return rgb ? `rgb(${rgb})` : 'rgb(59, 130, 246)'
+}
+
 onMounted(() => {
   // Force chart to re-render with animation
   chartKey.value++
@@ -70,13 +76,20 @@ const createGradient = (ctx, color1, color2) => {
 const chartData = computed(() => {
   const canvas = chartRef.value?.chart?.ctx?.canvas
   const ctx = canvas?.getContext('2d')
+  const primaryColor = getPrimaryColor()
+  
+  // Parse RGB to get individual values for gradient
+  const rgbMatch = primaryColor.match(/rgb\((\d+),?\s*(\d+),?\s*(\d+)\)/)
+  const r = rgbMatch ? rgbMatch[1] : '59'
+  const g = rgbMatch ? rgbMatch[2] : '130'
+  const b = rgbMatch ? rgbMatch[3] : '246'
   
   // Beautiful gradient colors - from solid to transparent
   const purchasesGradient = ctx ? createGradient(
     ctx,
-    'rgba(14, 165, 233, 0.4)',  // Sky blue - vibrant at top
-    'rgba(14, 165, 233, 0)'     // Transparent at bottom
-  ) : 'rgba(14, 165, 233, 0.2)'
+    `rgba(${r}, ${g}, ${b}, 0.4)`,  // Primary color - vibrant at top
+    `rgba(${r}, ${g}, ${b}, 0)`     // Transparent at bottom
+  ) : `rgba(${r}, ${g}, ${b}, 0.2)`
   
   const cancelledGradient = ctx ? createGradient(
     ctx,
@@ -90,17 +103,17 @@ const chartData = computed(() => {
       {
         label: 'Purchases',
         data: store.weeklyPurchases.map(d => d.purchases),
-        borderColor: '#0EA5E9',  // Sky blue
+        borderColor: primaryColor,
         backgroundColor: purchasesGradient,
         borderWidth: 3,
         tension: 0.4,
         fill: true,
         pointRadius: 6,
         pointHoverRadius: 8,
-        pointBackgroundColor: '#0EA5E9',
+        pointBackgroundColor: primaryColor,
         pointBorderColor: '#ffffff',
         pointBorderWidth: 2,
-        pointHoverBackgroundColor: '#0EA5E9',
+        pointHoverBackgroundColor: primaryColor,
         pointHoverBorderColor: '#ffffff',
         pointHoverBorderWidth: 3,
       },

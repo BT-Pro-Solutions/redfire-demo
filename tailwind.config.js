@@ -13,8 +13,10 @@ export default {
         'surface': '#ffffff',
         'surface-secondary': '#f8f9fa',
         'border': '#e5e7eb',
-        'primary': '#3b82f6',
-        'primary-dark': '#2563eb',
+        'primary': {
+          DEFAULT: 'rgb(var(--color-primary-rgb) / <alpha-value>)',
+          dark: '#2563eb',
+        },
       }
     },
   },

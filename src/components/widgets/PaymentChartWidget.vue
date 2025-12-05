@@ -25,6 +25,22 @@ const store = useDemoDataStore()
 const chartRef = ref(null)
 const chartKey = ref(0)
 
+// Get primary color from CSS variable
+const getPrimaryColor = () => {
+  const rgb = getComputedStyle(document.documentElement).getPropertyValue('--color-primary-rgb').trim()
+  return rgb ? `rgb(${rgb})` : 'rgb(59, 130, 246)'
+}
+
+// Lighten color for gradient
+const lightenColor = (rgbString, amount = 30) => {
+  const match = rgbString.match(/rgb\((\d+),?\s*(\d+),?\s*(\d+)\)/)
+  if (!match) return rgbString
+  const r = Math.min(255, parseInt(match[1]) + amount)
+  const g = Math.min(255, parseInt(match[2]) + amount)
+  const b = Math.min(255, parseInt(match[3]) + amount)
+  return `rgb(${r}, ${g}, ${b})`
+}
+
 onMounted(() => {
   // Force chart to re-render with animation
   chartKey.value++
@@ -41,13 +57,15 @@ const createBarGradient = (ctx, color1, color2) => {
 const chartData = computed(() => {
   const canvas = chartRef.value?.chart?.ctx?.canvas
   const ctx = canvas?.getContext('2d')
+  const primaryColor = getPrimaryColor()
+  const lighterPrimary = lightenColor(primaryColor, 40)
   
   // Beautiful gradient colors for each payment type
   const cashGradient = ctx ? createBarGradient(
     ctx,
-    '#10B981',  // Emerald
-    '#34D399'   // Lighter emerald
-  ) : '#10B981'
+    primaryColor,
+    lighterPrimary
+  ) : primaryColor
   
   const checkGradient = ctx ? createBarGradient(
     ctx,
