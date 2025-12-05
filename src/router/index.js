@@ -64,6 +64,10 @@ const routes = [
         component: () => import('../views/payment/CreditCard.vue')
       }
     ]
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/'
   }
 ]
 
@@ -74,6 +78,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.getItem('user')
+  
+  // If no route matched and no auth, go to login
+  if (!to.name && !isAuthenticated) {
+    next({ name: 'Login' })
+    return
+  }
   
   if (to.name !== 'Login' && !isAuthenticated) {
     next({ name: 'Login' })
