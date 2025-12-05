@@ -24,7 +24,8 @@
               />
               <button 
                 @click="$refs.avatarInput.click()"
-                class="px-4 py-2 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white rounded-xl transition"
+                class="px-4 py-2 text-white rounded-xl transition hover:opacity-90"
+                :style="`background-color: ${primaryColor}`"
               >
                 Upload New Picture
               </button>
@@ -52,7 +53,8 @@
               />
               <button 
                 @click="$refs.bgInput.click()"
-                class="px-4 py-2 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white rounded-xl transition"
+                class="px-4 py-2 text-white rounded-xl transition hover:opacity-90"
+                :style="`background-color: ${primaryColor}`"
               >
                 Upload New Background
               </button>
@@ -144,7 +146,8 @@
         </button>
         <button 
           @click="saveSettings"
-          class="px-6 py-3 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white rounded-xl transition"
+          class="px-6 py-3 text-white rounded-xl transition hover:opacity-90"
+          :style="`background-color: ${primaryColor}`"
         >
           Save Changes
         </button>
