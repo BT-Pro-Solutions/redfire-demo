@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="mb-6">
-      <h1 class="text-3xl font-bold text-white mb-2">Dashboard</h1>
-      <p class="text-gray-400">Welcome back, {{ userName }}</p>
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
+      <p class="text-gray-600">Welcome back, {{ userName }}</p>
     </div>
 
     <div class="dashboard-grid-container hidden lg:block">
@@ -11,9 +11,9 @@
           v-for="n in 12"
           :key="`shadow-${n}`"
           @click="handleEmptySlotClick(((n-1) % 4), Math.floor((n-1) / 4))"
-          class="bg-surface/0 backdrop-blur-sm rounded-lg shadow-lg border-2 border-dashed border-gray-600 hover:border-primary transition cursor-pointer flex items-center justify-center group"
+          class="bg-white/50 backdrop-blur-sm rounded-2xl border-2 border-dashed border-gray-200 hover:border-primary hover:bg-white/80 transition cursor-pointer flex items-center justify-center group"
         >
-          <Icon icon="mdi:plus" class="text-6xl text-gray-500 opacity-30 group-hover:opacity-60 group-hover:text-primary transition" />
+          <Icon icon="mdi:plus" class="text-6xl text-gray-300 opacity-50 group-hover:opacity-100 group-hover:text-primary transition" />
         </div>
       </div>
 
@@ -64,7 +64,6 @@
       <div
         v-for="item in widgetLayout"
         :key="item.i"
-        class="bg-surface rounded-lg shadow-lg"
         style="min-height: 300px;"
       >
         <component :is="getWidgetComponent(item.component)" />
@@ -75,7 +74,6 @@
       <div
         v-for="item in widgetLayout"
         :key="item.i"
-        class="bg-surface rounded-lg shadow-lg"
         style="min-height: 300px;"
       >
         <component :is="getWidgetComponent(item.component)" />
@@ -343,9 +341,9 @@ onMounted(() => {
 }
 
 :deep(.vue-grid-item.vue-grid-placeholder) {
-  background: rgba(59, 130, 246, 0.2);
-  border: 2px dashed rgba(59, 130, 246, 0.5);
-  border-radius: 0.5rem;
+  background: rgba(59, 130, 246, 0.1);
+  border: 2px dashed rgba(59, 130, 246, 0.4);
+  border-radius: 1rem;
   transition: all 0.2s ease;
   pointer-events: none !important;
 }

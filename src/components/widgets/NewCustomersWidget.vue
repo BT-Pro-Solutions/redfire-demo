@@ -1,17 +1,19 @@
 <template>
-  <div class="bg-surface rounded-lg shadow-lg p-6 h-full flex flex-col">
+  <div class="bg-white rounded-2xl border border-gray-100 p-6 h-full flex flex-col">
     <div class="flex items-center justify-between mb-4">
       <h3 class="text-lg font-bold text-gray-900">New Customers</h3>
-      <Icon icon="mdi:account-multiple-plus" class="text-2xl text-purple-500" />
+      <div class="w-10 h-10 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl flex items-center justify-center">
+        <Icon icon="mdi:account-multiple-plus" class="text-xl text-purple-600" />
+      </div>
     </div>
     
     <div class="flex-1 overflow-y-auto space-y-3">
       <div 
         v-for="customer in customers" 
         :key="customer.email"
-        class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg transition"
+        class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-xl transition"
       >
-        <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+        <div class="w-10 h-10 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center flex-shrink-0">
           <Icon icon="mdi:account" class="text-purple-600 text-xl" />
         </div>
         <div class="flex-1 min-w-0">

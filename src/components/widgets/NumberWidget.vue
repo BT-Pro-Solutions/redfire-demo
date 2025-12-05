@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-surface rounded-lg shadow-lg p-6 h-full flex flex-col items-center justify-center">
-    <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4" :class="iconBg">
+  <div class="bg-white rounded-2xl border border-gray-100 p-6 h-full flex flex-col items-center justify-center">
+    <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-4 bg-gradient-to-br" :class="iconBg">
       <Icon :icon="iconName" class="text-3xl" :class="iconColor" />
     </div>
     
@@ -10,10 +10,10 @@
       <div class="text-xs text-gray-500">{{ timePeriodLabel }}</div>
     </div>
 
-    <div v-if="change !== null" class="mt-4 flex items-center space-x-1 text-sm" :class="changeColor">
+    <div v-if="change !== null" class="mt-4 flex items-center space-x-1 text-sm px-3 py-1.5 rounded-lg" :class="changeBgColor">
       <Icon :icon="changeIcon" class="text-lg" />
-      <span class="font-medium">{{ Math.abs(change) }}%</span>
-      <span class="text-gray-500">vs last period</span>
+      <span class="font-semibold">{{ Math.abs(change) }}%</span>
+      <span class="opacity-75">vs last period</span>
     </div>
   </div>
 </template>
@@ -35,8 +35,8 @@ const metricData = {
     value: 24500,
     change: 12.5,
     icon: 'mdi:currency-usd',
-    iconColor: 'text-green-600',
-    iconBg: 'bg-green-100',
+    iconColor: 'text-emerald-600',
+    iconBg: 'from-emerald-50 to-teal-50',
     format: 'currency'
   },
   'total-orders': {
@@ -45,7 +45,7 @@ const metricData = {
     change: 8.2,
     icon: 'mdi:cart',
     iconColor: 'text-blue-600',
-    iconBg: 'bg-blue-100',
+    iconBg: 'from-blue-50 to-sky-50',
     format: 'number'
   },
   'avg-order': {
@@ -54,7 +54,7 @@ const metricData = {
     change: -2.4,
     icon: 'mdi:cash',
     iconColor: 'text-orange-600',
-    iconBg: 'bg-orange-100',
+    iconBg: 'from-orange-50 to-amber-50',
     format: 'currency'
   },
   'total-customers': {
@@ -63,7 +63,7 @@ const metricData = {
     change: 15.3,
     icon: 'mdi:account-group',
     iconColor: 'text-purple-600',
-    iconBg: 'bg-purple-100',
+    iconBg: 'from-purple-50 to-pink-50',
     format: 'number'
   },
   'low-stock-items': {
@@ -72,7 +72,7 @@ const metricData = {
     change: null,
     icon: 'mdi:alert-circle',
     iconColor: 'text-red-600',
-    iconBg: 'bg-red-100',
+    iconBg: 'from-red-50 to-orange-50',
     format: 'number'
   }
 }
@@ -108,7 +108,12 @@ const timePeriodLabel = computed(() => {
 
 const changeColor = computed(() => {
   if (change.value === null) return ''
-  return change.value >= 0 ? 'text-green-600' : 'text-red-600'
+  return change.value >= 0 ? 'text-emerald-600' : 'text-red-600'
+})
+
+const changeBgColor = computed(() => {
+  if (change.value === null) return ''
+  return change.value >= 0 ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'
 })
 
 const changeIcon = computed(() => {

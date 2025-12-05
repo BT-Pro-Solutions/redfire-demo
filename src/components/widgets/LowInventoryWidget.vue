@@ -1,15 +1,17 @@
 <template>
-  <div class="bg-surface rounded-lg shadow-lg p-6 h-full flex flex-col">
+  <div class="bg-white rounded-2xl border border-gray-100 p-6 h-full flex flex-col">
     <div class="flex items-center justify-between mb-4">
       <h3 class="text-lg font-bold text-gray-900">Low Inventory</h3>
-      <Icon icon="mdi:alert-circle" class="text-2xl text-red-500" />
+      <div class="w-10 h-10 bg-gradient-to-br from-red-50 to-orange-50 rounded-xl flex items-center justify-center">
+        <Icon icon="mdi:alert-circle" class="text-xl text-red-600" />
+      </div>
     </div>
     
     <div class="flex-1 overflow-y-auto space-y-3">
       <div 
         v-for="item in items" 
         :key="item.sku"
-        class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition border-l-4"
+        class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl transition border-l-4"
         :class="getAlertClass(item.qty)"
       >
         <div class="flex-1 min-w-0">
@@ -18,7 +20,7 @@
         </div>
         <div class="flex items-center space-x-2">
           <span 
-            class="text-lg font-bold px-3 py-1 rounded-full"
+            class="text-lg font-bold px-3 py-1 rounded-xl"
             :class="getQtyClass(item.qty)"
           >
             {{ item.qty }}
@@ -27,7 +29,7 @@
       </div>
     </div>
     
-    <button class="mt-4 w-full py-2 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg text-sm font-medium transition">
+    <button class="mt-4 w-full py-2.5 bg-gradient-to-r from-blue-500 to-sky-500 hover:from-blue-600 hover:to-sky-600 text-white rounded-xl text-sm font-medium transition">
       Reorder Items
     </button>
   </div>

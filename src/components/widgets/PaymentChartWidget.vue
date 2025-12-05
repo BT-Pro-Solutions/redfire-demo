@@ -1,17 +1,19 @@
 <template>
-  <div class="bg-surface rounded-lg shadow-lg p-6 h-full flex flex-col">
+  <div class="bg-white rounded-2xl border border-gray-100 p-6 h-full flex flex-col">
     <div class="flex items-center justify-between mb-4">
       <h3 class="text-lg font-bold text-gray-900">Weekly Payments</h3>
-      <Icon icon="mdi:cash-multiple" class="text-2xl text-emerald-500" />
+      <div class="w-10 h-10 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl flex items-center justify-center">
+        <Icon icon="mdi:cash-multiple" class="text-xl text-emerald-600" />
+      </div>
     </div>
     <div class="flex-1 min-h-0">
-      <Bar ref="chartRef" :data="chartData" :options="chartOptions" />
+      <Bar ref="chartRef" :data="chartData" :options="chartOptions" :key="chartKey" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, shallowRef, ref } from 'vue'
+import { computed, shallowRef, ref, onMounted } from 'vue'
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 import { Icon } from '@iconify/vue'
@@ -19,10 +21,14 @@ import { useDemoDataStore } from '@/stores/demoData'
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
-ChartJS.defaults.animation = false
-
 const store = useDemoDataStore()
 const chartRef = ref(null)
+const chartKey = ref(0)
+
+onMounted(() => {
+  // Force chart to re-render with animation
+  chartKey.value++
+})
 
 // Create vertical gradients for bars
 const createBarGradient = (ctx, color1, color2) => {
@@ -99,7 +105,21 @@ const chartData = computed(() => {
 const chartOptions = shallowRef({
   responsive: true,
   maintainAspectRatio: false,
-  animation: false,
+  animation: {
+    y: {
+      duration: 800,
+      easing: 'easeOutQuart',
+      from: (ctx) => {
+        // Animate from bottom of chart
+        if (ctx.type === 'data') {
+          return ctx.chart.scales.y.getPixelForValue(0);
+        }
+      },
+      delay: (context) => {
+        return context.dataIndex * 80;
+      }
+    },
+  },
   interaction: {
     mode: 'index',
     intersect: false,

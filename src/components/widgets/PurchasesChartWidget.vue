@@ -1,17 +1,19 @@
 <template>
-  <div class="bg-surface rounded-lg shadow-lg p-6 h-full flex flex-col">
+  <div class="bg-white rounded-2xl border border-gray-100 p-6 h-full flex flex-col">
     <div class="flex items-center justify-between mb-4">
       <h3 class="text-lg font-bold text-gray-900">Weekly Purchases</h3>
-      <Icon icon="mdi:cart-outline" class="text-2xl text-blue-500" />
+      <div class="w-10 h-10 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl flex items-center justify-center">
+        <Icon icon="mdi:cart-outline" class="text-xl text-blue-600" />
+      </div>
     </div>
     <div class="flex-1 min-h-0">
-      <Line ref="chartRef" :data="chartData" :options="chartOptions" />
+      <Line ref="chartRef" :data="chartData" :options="chartOptions" :key="chartKey" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, shallowRef, ref, onMounted, watch } from 'vue'
+import { computed, shallowRef, ref, onMounted } from 'vue'
 import { Line } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement, Filler } from 'chart.js'
 import { Icon } from '@iconify/vue'
@@ -19,10 +21,14 @@ import { useDemoDataStore } from '@/stores/demoData'
 
 ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement, Filler)
 
-ChartJS.defaults.animation = false
-
 const store = useDemoDataStore()
 const chartRef = ref(null)
+const chartKey = ref(0)
+
+onMounted(() => {
+  // Force chart to re-render with animation
+  chartKey.value++
+})
 
 // Create gradients for the chart
 const createGradient = (ctx, color1, color2) => {
@@ -93,7 +99,18 @@ const chartData = computed(() => {
 const chartOptions = shallowRef({
   responsive: true,
   maintainAspectRatio: false,
-  animation: false,
+  animation: {
+    x: {
+      duration: 1500,
+      from: (ctx) => {
+        // Animate from left
+        if (ctx.type === 'data') {
+          return ctx.chart.scales.x.left;
+        }
+      },
+      easing: 'easeInOutQuart',
+    },
+  },
   interaction: {
     mode: 'index',
     intersect: false,
@@ -154,12 +171,5 @@ const chartOptions = shallowRef({
     }
   }
 })
-
-// Watch for chart mount and data changes to update gradients
-watch(() => chartRef.value, () => {
-  if (chartRef.value?.chart) {
-    chartRef.value.chart.update()
-  }
-}, { flush: 'post' })
 </script>
 

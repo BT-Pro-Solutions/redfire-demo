@@ -1,11 +1,11 @@
 <template>
-  <div class="bg-surface rounded-lg shadow-lg overflow-hidden">
+  <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
     <div class="p-4 md:p-6 border-b border-gray-200">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl md:text-2xl font-bold text-gray-900">{{ title }}</h2>
         <button 
           @click="$emit('add')"
-          class="px-3 py-2 md:px-4 md:py-2 bg-primary hover:bg-primary-dark text-white rounded-lg transition flex items-center space-x-2"
+          class="px-3 py-2 md:px-4 md:py-2 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white rounded-xl transition flex items-center space-x-2"
         >
           <Icon icon="mdi:plus" class="flex-shrink-0" />
           <span class="hidden sm:inline">Add {{ addButtonLabel }}</span>
@@ -19,26 +19,26 @@
             v-model="searchQuery"
             type="text"
             placeholder="Search..."
-            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+            class="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white outline-none transition"
           />
         </div>
         
         <div class="relative">
           <button 
             @click="showDateRange = !showDateRange"
-            class="px-3 py-2 md:px-4 md:py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition flex items-center space-x-2"
+            class="px-3 py-2 md:px-4 md:py-2 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition flex items-center space-x-2"
           >
             <Icon icon="mdi:calendar-range" class="flex-shrink-0" />
             <span class="hidden md:inline">Date Range</span>
           </button>
           
-          <div v-if="showDateRange" class="absolute right-0 top-full mt-2 bg-white rounded-lg shadow-xl border border-gray-200 p-4 z-50 w-80 max-w-[calc(100vw-2rem)]">
+          <div v-if="showDateRange" class="absolute right-0 top-full mt-2 bg-white rounded-2xl border border-gray-200 p-4 z-50 w-80 max-w-[calc(100vw-2rem)]">
             <div class="mb-3">
               <label class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
               <input 
                 v-model="startDate"
                 type="date" 
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white outline-none transition"
               />
             </div>
             <div class="mb-4">
@@ -46,19 +46,19 @@
               <input 
                 v-model="endDate"
                 type="date" 
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white outline-none transition"
               />
             </div>
             <div class="flex justify-end space-x-2">
               <button 
                 @click="clearDateRange"
-                class="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded-lg transition"
+                class="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded-xl transition"
               >
                 Clear
               </button>
               <button 
                 @click="applyDateRange"
-                class="px-3 py-1.5 text-sm bg-primary text-white rounded-lg hover:bg-primary-dark transition"
+                class="px-3 py-1.5 text-sm bg-gradient-to-r from-primary to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-primary transition"
               >
                 Apply
               </button>
@@ -69,13 +69,13 @@
         <div class="relative">
           <button 
             @click="showColumnPicker = !showColumnPicker"
-            class="px-3 py-2 md:px-4 md:py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition flex items-center space-x-2"
+            class="px-3 py-2 md:px-4 md:py-2 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition flex items-center space-x-2"
           >
             <Icon icon="mdi:table-cog" class="flex-shrink-0" />
             <span class="hidden md:inline">Columns</span>
           </button>
           
-          <div v-if="showColumnPicker" class="absolute right-0 top-full mt-2 bg-white rounded-lg shadow-xl border border-gray-200 p-4 z-50 w-64 max-w-[calc(100vw-2rem)]">
+          <div v-if="showColumnPicker" class="absolute right-0 top-full mt-2 bg-white rounded-2xl border border-gray-200 p-4 z-50 w-64 max-w-[calc(100vw-2rem)]">
             <div class="mb-3">
               <h3 class="text-sm font-semibold text-gray-900">Show/Hide Columns</h3>
             </div>
@@ -102,7 +102,7 @@
               </button>
               <button 
                 @click="showColumnPicker = false"
-                class="px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition"
+                class="px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 rounded-xl transition"
               >
                 Done
               </button>
@@ -110,7 +110,7 @@
           </div>
         </div>
         
-        <button class="px-3 py-2 md:px-4 md:py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition flex items-center space-x-2">
+        <button class="px-3 py-2 md:px-4 md:py-2 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition flex items-center space-x-2">
           <Icon icon="mdi:download" class="flex-shrink-0" />
           <span class="hidden md:inline">Export</span>
         </button>
@@ -144,7 +144,7 @@
               v-for="row in sortedData"
               :key="row.id"
               @click="$emit('edit', row)"
-              class="hover:bg-gray-50 transition cursor-pointer"
+              class="hover:bg-blue-50/50 transition cursor-pointer"
             >
               <td
                 v-for="column in visibleColumnsList"
