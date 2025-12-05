@@ -6,11 +6,40 @@
         <Icon icon="mdi:cart-outline" class="text-xl text-blue-600" />
       </div>
     </div>
-    <div class="flex-1 min-h-0">
+    <div class="flex-1 min-h-0 line-chart-container">
       <Line ref="chartRef" :data="chartData" :options="chartOptions" :key="chartKey" />
     </div>
   </div>
 </template>
+
+<style scoped>
+/* Reveal line chart from left to right */
+.line-chart-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.line-chart-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  animation: revealChart 2s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes revealChart {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 100%);
+  }
+}
+</style>
 
 <script setup>
 import { computed, shallowRef, ref, onMounted } from 'vue'
@@ -99,18 +128,7 @@ const chartData = computed(() => {
 const chartOptions = shallowRef({
   responsive: true,
   maintainAspectRatio: false,
-  animation: {
-    x: {
-      duration: 1500,
-      from: (ctx) => {
-        // Animate from left
-        if (ctx.type === 'data') {
-          return ctx.chart.scales.x.left;
-        }
-      },
-      easing: 'easeInOutQuart',
-    },
-  },
+  animation: false,
   interaction: {
     mode: 'index',
     intersect: false,

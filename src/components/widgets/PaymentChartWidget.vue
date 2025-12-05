@@ -74,29 +74,21 @@ const chartData = computed(() => {
         label: 'Cash',
         data: store.weeklyPayments.map(d => d.cash),
         backgroundColor: cashGradient,
-        borderRadius: 6,
-        borderSkipped: false,
       },
       {
         label: 'Check',
         data: store.weeklyPayments.map(d => d.check),
         backgroundColor: checkGradient,
-        borderRadius: 6,
-        borderSkipped: false,
       },
       {
         label: 'Credit Card',
         data: store.weeklyPayments.map(d => d.creditcard),
         backgroundColor: creditCardGradient,
-        borderRadius: 6,
-        borderSkipped: false,
       },
       {
         label: 'Gift Card',
         data: store.weeklyPayments.map(d => d.giftcard),
         backgroundColor: giftCardGradient,
-        borderRadius: 6,
-        borderSkipped: false,
       }
     ]
   }
@@ -105,20 +97,27 @@ const chartData = computed(() => {
 const chartOptions = shallowRef({
   responsive: true,
   maintainAspectRatio: false,
-  animation: {
-    y: {
-      duration: 800,
-      easing: 'easeOutQuart',
-      from: (ctx) => {
-        // Animate from bottom of chart
-        if (ctx.type === 'data') {
-          return ctx.chart.scales.y.getPixelForValue(0);
-        }
-      },
-      delay: (context) => {
-        return context.dataIndex * 80;
-      }
+  animations: {
+    // Disable all movement - only fade opacity
+    x: false,
+    y: false,
+    colors: {
+      duration: 0
     },
+    // Only animate opacity for fade in
+    opacity: {
+      duration: 500,
+      easing: 'linear',
+      from: 0,
+      to: 1,
+      delay: (context) => {
+        // Fade in each column group sequentially
+        if (context.type === 'data') {
+          return context.dataIndex * 150;
+        }
+        return 0;
+      }
+    }
   },
   interaction: {
     mode: 'index',

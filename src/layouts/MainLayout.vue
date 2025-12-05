@@ -17,7 +17,7 @@
           <div class="w-10 h-10 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg">
             <Icon icon="mdi:storefront" class="text-xl" />
           </div>
-          <span class="text-xl font-bold md:hidden lg:inline">RedFire</span>
+          <span class="text-xl font-bold md:hidden lg:inline">TestCo</span>
         </div>
       </div>
 
@@ -158,7 +158,7 @@
                   <div class="text-xs text-gray-500">{{ user.role }}</div>
                 </div>
                 <button @click="handleLogout" class="w-10 h-10 rounded-xl flex items-center justify-center hover:opacity-80 transition flex-shrink-0 overflow-hidden border-2 border-gray-200 hover:border-primary">
-                  <img src="/avatar.png" alt="User Avatar" class="w-full h-full object-cover" />
+                  <img :src="avatarUrl" alt="User Avatar" class="w-full h-full object-cover" />
                 </button>
               </div>
             </div>
@@ -166,7 +166,7 @@
         </header>
 
         <!-- Main Content Area -->
-        <main class="flex-1 overflow-y-auto bg-gray-50 p-6">
+        <main class="flex-1 overflow-y-auto bg-gray-100 p-6">
           <router-view />
         </main>
       </div>
@@ -175,7 +175,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { Icon } from '@iconify/vue'
 
@@ -188,6 +188,8 @@ const user = ref({
   email: 'demo@redfire.com',
   role: 'Admin'
 })
+
+const avatarUrl = computed(() => `${import.meta.env.BASE_URL}avatar.png`)
 
 watch(route, () => {
   mobileMenuOpen.value = false

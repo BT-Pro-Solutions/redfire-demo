@@ -11,7 +11,7 @@
           v-for="n in 12"
           :key="`shadow-${n}`"
           @click="handleEmptySlotClick(((n-1) % 4), Math.floor((n-1) / 4))"
-          class="bg-white/50 backdrop-blur-sm rounded-2xl border-2 border-dashed border-gray-200 hover:border-primary hover:bg-white/80 transition cursor-pointer flex items-center justify-center group"
+          class="bg-gray backdrop-blur-sm rounded-2xl border-2 border-dashed border-gray-200 hover:border-primary hover:bg-white/80 transition cursor-pointer flex items-center justify-center group"
         >
           <Icon icon="mdi:plus" class="text-6xl text-gray-300 opacity-50 group-hover:opacity-100 group-hover:text-primary transition" />
         </div>
@@ -138,7 +138,7 @@ const showRemoveConfirm = ref(false)
 const widgetToRemove = ref(null)
 
 const calculateRowHeight = () => {
-  const containerHeight = Math.max(window.innerHeight - 200, 600)
+  const containerHeight = Math.max(window.innerHeight - 280, 500)
   const padding = 48
   const gaps = 48
   return Math.floor((containerHeight - padding - gaps) / 3)
@@ -257,8 +257,8 @@ onMounted(() => {
 <style scoped>
 .dashboard-grid-container {
   position: relative;
-  height: calc(100vh - 200px);
-  min-height: 600px;
+  height: calc(100vh - 280px);
+  min-height: 500px;
 }
 
 .dashboard-shadow-grid {
@@ -276,7 +276,7 @@ onMounted(() => {
   pointer-events: none;
   z-index: 10;
   height: 100%;
-  min-height: 600px;
+  min-height: 500px;
 }
 
 .grid-item-wrapper {
