@@ -84,7 +84,7 @@ import { Icon } from '@iconify/vue'
 
 const router = useRouter()
 const email = ref('demo@redfire.com')
-const password = ref('password')
+const password = ref('saldkfja;lskdfjslakf')
 const rememberMe = ref(false)
 
 const bgUrl = computed(() => localStorage.getItem('customBackground') || `${import.meta.env.BASE_URL}bg.avif`)
