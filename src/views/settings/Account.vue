@@ -1,44 +1,44 @@
 <template>
   <div>
-    <div class="mb-6">
-      <h1 class="text-3xl font-bold text-gray-900 mb-2">My Account</h1>
-      <p class="text-gray-600">Manage your account settings</p>
+    <div class="page-header">
+      <h1 class="page-title">My Account</h1>
+      <p class="page-subtitle">Manage your account settings</p>
     </div>
 
-    <div class="bg-white rounded-2xl border border-gray-100 p-6">
-      <h2 class="text-xl font-bold text-gray-900 mb-4">Account Information</h2>
-      <div class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+    <div class="account-card">
+      <h2 class="card-title">Account Information</h2>
+      <div class="form-fields">
+        <div class="form-field">
+          <label class="field-label">Name</label>
           <input 
             type="text" 
             v-model="name"
-            class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+            class="field-input"
           />
         </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+        <div class="form-field">
+          <label class="field-label">Email</label>
           <input 
             type="email" 
             v-model="email"
-            class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+            class="field-input"
           />
         </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Role</label>
+        <div class="form-field">
+          <label class="field-label">Role</label>
           <input 
             type="text" 
             v-model="role"
             disabled
-            class="w-full px-4 py-2 bg-gray-100 border border-gray-200 rounded-xl text-gray-500"
+            class="field-input disabled-input"
           />
         </div>
       </div>
       
-      <div class="mt-6 flex justify-end">
+      <div class="form-actions">
         <button 
           @click="saveAccount"
-          class="px-6 py-3 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white rounded-xl transition"
+          class="save-button"
         >
           Save Changes
         </button>
@@ -72,3 +72,93 @@ const saveAccount = () => {
 }
 </script>
 
+<style scoped>
+.page-header {
+  margin-bottom: 1.5rem;
+}
+
+.page-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  color: var(--gray-600);
+}
+
+.account-card {
+  background-color: white;
+  border-radius: 1rem;
+  border: 1px solid var(--gray-100);
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 1rem;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-700);
+  margin-bottom: 0.5rem;
+}
+
+.field-input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background-color: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 0.75rem;
+  outline: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.field-input:focus {
+  box-shadow: 0 0 0 2px rgb(var(--color-primary-rgb) / 0.2);
+  border-color: transparent;
+}
+
+.disabled-input {
+  background-color: var(--gray-100);
+  color: var(--gray-500);
+  cursor: not-allowed;
+}
+
+.form-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.save-button {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(to right, rgb(var(--color-primary-rgb)), var(--blue-600));
+  color: white;
+  border-radius: 0.75rem;
+  transition: background 0.15s ease-in-out;
+  border: none;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  background: linear-gradient(to right, var(--blue-600), rgb(var(--color-primary-rgb)));
+}
+</style>

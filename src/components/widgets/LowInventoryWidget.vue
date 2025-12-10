@@ -1,26 +1,26 @@
 <template>
-  <div class="bg-white rounded-2xl border border-gray-100 p-6 h-full flex flex-col">
-    <div class="flex items-center justify-between mb-4">
-      <h3 class="text-lg font-bold text-gray-900">Low Inventory</h3>
-      <div class="w-10 h-10 bg-gradient-to-br from-red-50 to-orange-50 rounded-xl flex items-center justify-center">
-        <Icon icon="mdi:alert-circle" class="text-xl text-red-600" />
+  <div class="widget-container">
+    <div class="widget-header">
+      <h3 class="widget-title">Low Inventory</h3>
+      <div class="widget-icon">
+        <Icon icon="mdi:alert-circle" class="icon" />
       </div>
     </div>
     
-    <div class="flex-1 overflow-y-auto space-y-3">
+    <div class="inventory-list">
       <div 
         v-for="item in items" 
         :key="item.sku"
-        class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl transition border-l-4"
+        class="inventory-item"
         :class="getAlertClass(item.qty)"
       >
-        <div class="flex-1 min-w-0">
-          <div class="font-semibold text-gray-900 text-sm truncate">{{ item.name }}</div>
-          <div class="text-xs text-gray-500">SKU: {{ item.sku }}</div>
+        <div class="item-info">
+          <div class="item-name">{{ item.name }}</div>
+          <div class="item-sku">SKU: {{ item.sku }}</div>
         </div>
-        <div class="flex items-center space-x-2">
+        <div class="item-qty-container">
           <span 
-            class="text-lg font-bold px-3 py-1 rounded-xl"
+            class="item-qty"
             :class="getQtyClass(item.qty)"
           >
             {{ item.qty }}
@@ -29,7 +29,7 @@
       </div>
     </div>
     
-    <button class="mt-4 w-full py-2.5 text-white rounded-xl text-sm font-medium transition hover:opacity-90" :style="`background-color: rgb(var(--color-primary-rgb))`">
+    <button class="reorder-button" :style="`background-color: rgb(var(--color-primary-rgb))`">
       Reorder Items
     </button>
   </div>
@@ -44,16 +44,152 @@ const store = useDemoDataStore()
 const items = computed(() => store.lowInventory)
 
 const getAlertClass = (qty) => {
-  if (qty <= 2) return 'border-red-500'
-  if (qty <= 4) return 'border-orange-500'
-  return 'border-yellow-500'
+  if (qty <= 2) return 'alert-critical'
+  if (qty <= 4) return 'alert-warning'
+  return 'alert-low'
 }
 
 const getQtyClass = (qty) => {
-  if (qty <= 2) return 'bg-red-100 text-red-700'
-  if (qty <= 4) return 'bg-orange-100 text-orange-700'
-  return 'bg-yellow-100 text-yellow-700'
+  if (qty <= 2) return 'qty-critical'
+  if (qty <= 4) return 'qty-warning'
+  return 'qty-low'
 }
 </script>
 
+<style scoped>
+.widget-container {
+  background-color: white;
+  border-radius: 1rem;
+  border: 1px solid var(--gray-100);
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
+.widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.widget-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.widget-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: linear-gradient(to bottom right, #fef2f2, #fff7ed);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  font-size: 1.25rem;
+  color: var(--red-600);
+}
+
+.inventory-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.inventory-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  transition: background-color 0.15s ease-in-out;
+  border-left: 4px solid;
+}
+
+.inventory-item:hover {
+  background-color: var(--gray-50);
+}
+
+.alert-critical {
+  border-left-color: var(--red-500);
+}
+
+.alert-warning {
+  border-left-color: var(--orange-500);
+}
+
+.alert-low {
+  border-left-color: #eab308;
+}
+
+.item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-name {
+  font-weight: 600;
+  color: var(--gray-900);
+  font-size: 0.875rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-sku {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+}
+
+.item-qty-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.item-qty {
+  font-size: 1.125rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.75rem;
+}
+
+.qty-critical {
+  background-color: var(--red-100);
+  color: #b91c1c;
+}
+
+.qty-warning {
+  background-color: #fed7aa;
+  color: #c2410c;
+}
+
+.qty-low {
+  background-color: #fef08a;
+  color: #a16207;
+}
+
+.reorder-button {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.625rem;
+  color: white;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: opacity 0.15s ease-in-out;
+  border: none;
+  cursor: pointer;
+}
+
+.reorder-button:hover {
+  opacity: 0.9;
+}
+</style>

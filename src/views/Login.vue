@@ -1,24 +1,24 @@
 <template>
-  <div class="min-h-screen bg-dark-bg flex items-center justify-center p-4 relative" 
+  <div class="login-container" 
   :style="{ backgroundImage: `url(${bgUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
     <!-- Dark overlay -->
-    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="overlay"></div>
     
     <!-- Login Box -->
-    <div class="bg-white rounded-lg shadow-2xl w-full max-w-md p-8 relative z-10">
+    <div class="login-box">
       <!-- Logo/Title Area -->
-      <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4">
-          <Icon icon="mdi:storefront" class="text-3xl text-white" />
+      <div class="header">
+        <div class="logo">
+          <Icon icon="mdi:storefront" class="logo-icon" />
         </div>
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">TestCorp Demo</h1>
-        <p class="text-gray-600">E-Commerce Reporting Platform</p>
+        <h1 class="title">TestCorp Demo</h1>
+        <p class="subtitle">E-Commerce Reporting Platform</p>
       </div>
 
       <!-- Login Form -->
-      <form @submit.prevent="handleLogin" class="space-y-6">
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+      <form @submit.prevent="handleLogin" class="login-form">
+        <div class="form-group">
+          <label for="email" class="label">
             Email
           </label>
           <input
@@ -26,13 +26,13 @@
             v-model="email"
             type="email"
             required
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition"
+            class="input"
             placeholder="demo@redfire.com"
           />
         </div>
 
-        <div>
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+        <div class="form-group">
+          <label for="password" class="label">
             Password
           </label>
           <input
@@ -40,36 +40,36 @@
             v-model="password"
             type="password"
             required
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition"
+            class="input"
             placeholder="••••••••"
           />
         </div>
 
-        <div class="flex items-center justify-between">
-          <label class="flex items-center">
+        <div class="form-options">
+          <label class="checkbox-label">
             <input
               type="checkbox"
               v-model="rememberMe"
-              class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+              class="checkbox"
             />
-            <span class="ml-2 text-sm text-gray-700">Remember me</span>
+            <span class="checkbox-text">Remember me</span>
           </label>
-          <a href="#" class="text-sm text-primary hover:text-primary-dark">
+          <a href="#" class="forgot-link">
             Forgot password?
           </a>
         </div>
 
         <button
           type="submit"
-          class="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 rounded-lg transition duration-200 shadow-lg hover:shadow-xl"
+          class="submit-button"
         >
           Sign In
         </button>
       </form>
 
       <!-- Demo Credentials Hint -->
-      <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-        <p class="text-sm text-blue-800 text-center">
+      <div class="demo-hint">
+        <p class="demo-text">
           <strong>Demo:</strong> Any email/password will work
         </p>
       </div>
@@ -121,5 +121,170 @@ const handleLogin = () => {
 }
 </script>
 
+<style scoped>
+.login-container {
+  min-height: 100vh;
+  background-color: var(--color-dark-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  position: relative;
+}
 
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
 
+.login-box {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 28rem;
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  background-color: rgb(var(--color-primary-rgb));
+  border-radius: 9999px;
+  margin-bottom: 1rem;
+}
+
+.logo-icon {
+  font-size: 1.875rem;
+  color: white;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: var(--gray-600);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-700);
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 0.5rem;
+  outline: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.input:focus {
+  ring: 2px solid rgb(var(--color-primary-rgb));
+  border-color: transparent;
+  box-shadow: 0 0 0 2px rgb(var(--color-primary-rgb) / 0.2);
+}
+
+.form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+  color: rgb(var(--color-primary-rgb));
+  border: 1px solid var(--gray-300);
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.checkbox:focus {
+  box-shadow: 0 0 0 2px rgb(var(--color-primary-rgb) / 0.2);
+}
+
+.checkbox-text {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--gray-700);
+}
+
+.forgot-link {
+  font-size: 0.875rem;
+  color: rgb(var(--color-primary-rgb));
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  color: var(--color-primary-dark);
+}
+
+.submit-button {
+  width: 100%;
+  background-color: rgb(var(--color-primary-rgb));
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: var(--color-primary-dark);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.demo-hint {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: var(--blue-50);
+  border-radius: 0.5rem;
+  border: 1px solid var(--blue-200);
+}
+
+.demo-text {
+  font-size: 0.875rem;
+  color: var(--blue-800);
+  text-align: center;
+}
+</style>

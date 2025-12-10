@@ -1,52 +1,52 @@
 <template>
-  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" @click.self="$emit('close')">
-    <div class="bg-white rounded-xl shadow-2xl max-w-3xl w-full max-h-[85vh] overflow-hidden">
+  <div class="modal-overlay" @click.self="$emit('close')">
+    <div class="modal-container">
       <!-- Header -->
-      <div class="flex items-center justify-between p-6 border-b border-gray-200">
+      <div class="modal-header">
         <div>
-          <h2 class="text-2xl font-bold text-gray-900">Add Widget</h2>
-          <p class="text-sm text-gray-500 mt-1">
+          <h2 class="modal-title">Add Widget</h2>
+          <p class="modal-subtitle">
             Step {{ currentStep }} of 2: {{ currentStep === 1 ? 'Choose widget type' : 'Configure widget' }}
           </p>
         </div>
-        <button @click="$emit('close')" class="text-gray-400 hover:text-gray-600 transition">
-          <Icon icon="mdi:close" class="text-2xl" />
+        <button @click="$emit('close')" class="close-button">
+          <Icon icon="mdi:close" class="close-icon" />
         </button>
       </div>
 
       <!-- Step 1: Choose Widget Type -->
-      <div v-if="currentStep === 1" class="p-6 overflow-y-auto max-h-[calc(85vh-180px)]">
-        <p class="text-gray-600 mb-6">Select the type of widget you want to add to your dashboard.</p>
+      <div v-if="currentStep === 1" class="modal-body">
+        <p class="intro-text">Select the type of widget you want to add to your dashboard.</p>
         
-        <div class="grid grid-cols-3 gap-4">
+        <div class="widget-grid">
           <button
             v-for="type in widgetTypes"
             :key="type.id"
             @click="selectWidgetType(type)"
-            class="flex flex-col items-center p-6 border-2 border-gray-200 rounded-xl hover:border-primary hover:bg-blue-50 transition group"
+            class="widget-type-button"
           >
             <div 
-              class="w-16 h-16 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition"
+              class="widget-icon"
               :class="type.bgColor"
             >
-              <Icon :icon="type.icon" class="text-3xl" :class="type.iconColor" />
+              <Icon :icon="type.icon" class="icon" :class="type.iconColor" />
             </div>
-            <h3 class="text-base font-semibold text-gray-900 mb-1">{{ type.name }}</h3>
-            <p class="text-xs text-gray-500 text-center">{{ type.description }}</p>
+            <h3 class="widget-type-name">{{ type.name }}</h3>
+            <p class="widget-type-description">{{ type.description }}</p>
           </button>
         </div>
       </div>
 
       <!-- Step 2: Configure Widget -->
-      <div v-else class="p-6 overflow-y-auto max-h-[calc(85vh-180px)]">
+      <div v-else class="modal-body">
         <!-- Bar Chart Configuration -->
         <div v-if="selectedType?.id === 'bar-chart'">
-          <h3 class="text-lg font-bold text-gray-900 mb-4">Configure Bar Chart</h3>
+          <h3 class="config-title">Configure Bar Chart</h3>
           
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Time Period (X-Axis)</label>
-              <select v-model="config.timePeriod" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+          <div class="config-form">
+            <div class="form-group">
+              <label class="form-label">Time Period (X-Axis)</label>
+              <select v-model="config.timePeriod" class="form-select">
                 <option value="week">Last 7 Days</option>
                 <option value="month">Last 30 Days</option>
                 <option value="quarter">Last 3 Months</option>
@@ -54,9 +54,9 @@
               </select>
             </div>
 
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Data to Display</label>
-              <select v-model="config.dataType" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+            <div class="form-group">
+              <label class="form-label">Data to Display</label>
+              <select v-model="config.dataType" class="form-select">
                 <option value="payments">Payments (by type)</option>
                 <option value="sales">Sales Revenue</option>
                 <option value="orders">Order Volume</option>
@@ -68,12 +68,12 @@
 
         <!-- Line Graph Configuration -->
         <div v-else-if="selectedType?.id === 'line-graph'">
-          <h3 class="text-lg font-bold text-gray-900 mb-4">Configure Line Graph</h3>
+          <h3 class="config-title">Configure Line Graph</h3>
           
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Time Period (X-Axis)</label>
-              <select v-model="config.timePeriod" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+          <div class="config-form">
+            <div class="form-group">
+              <label class="form-label">Time Period (X-Axis)</label>
+              <select v-model="config.timePeriod" class="form-select">
                 <option value="week">Last 7 Days</option>
                 <option value="month">Last 30 Days</option>
                 <option value="quarter">Last 3 Months</option>
@@ -81,9 +81,9 @@
               </select>
             </div>
 
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Primary Metric</label>
-              <select v-model="config.primaryMetric" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+            <div class="form-group">
+              <label class="form-label">Primary Metric</label>
+              <select v-model="config.primaryMetric" class="form-select">
                 <option value="purchases">Purchases</option>
                 <option value="revenue">Revenue</option>
                 <option value="customers">Customer Count</option>
@@ -91,9 +91,9 @@
               </select>
             </div>
 
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Secondary Metric (Optional)</label>
-              <select v-model="config.secondaryMetric" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+            <div class="form-group">
+              <label class="form-label">Secondary Metric (Optional)</label>
+              <select v-model="config.secondaryMetric" class="form-select">
                 <option value="">None</option>
                 <option value="cancelled">Cancellations</option>
                 <option value="refunds">Refunds</option>
@@ -105,12 +105,12 @@
 
         <!-- Number Widget Configuration -->
         <div v-else-if="selectedType?.id === 'number'">
-          <h3 class="text-lg font-bold text-gray-900 mb-4">Configure Number Widget</h3>
+          <h3 class="config-title">Configure Number Widget</h3>
           
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Metric to Display</label>
-              <select v-model="config.metric" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+          <div class="config-form">
+            <div class="form-group">
+              <label class="form-label">Metric to Display</label>
+              <select v-model="config.metric" class="form-select">
                 <option value="total-revenue">Total Revenue</option>
                 <option value="total-orders">Total Orders</option>
                 <option value="avg-order">Average Order Value</option>
@@ -119,9 +119,9 @@
               </select>
             </div>
 
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Time Period</label>
-              <select v-model="config.timePeriod" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+            <div class="form-group">
+              <label class="form-label">Time Period</label>
+              <select v-model="config.timePeriod" class="form-select">
                 <option value="today">Today</option>
                 <option value="week">This Week</option>
                 <option value="month">This Month</option>
@@ -133,18 +133,18 @@
 
         <!-- Quick Links Configuration -->
         <div v-else-if="selectedType?.id === 'quick-links'">
-          <h3 class="text-lg font-bold text-gray-900 mb-4">Configure Quick Links</h3>
-          <p class="text-sm text-gray-600 mb-4">Quick links widget will use default shortcuts. You can customize individual links after adding the widget.</p>
+          <h3 class="config-title">Configure Quick Links</h3>
+          <p class="config-description">Quick links widget will use default shortcuts. You can customize individual links after adding the widget.</p>
         </div>
 
         <!-- Recent Items Configuration -->
         <div v-else-if="selectedType?.id === 'recent-items'">
-          <h3 class="text-lg font-bold text-gray-900 mb-4">Configure Recent Items</h3>
+          <h3 class="config-title">Configure Recent Items</h3>
           
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Item Type</label>
-              <select v-model="config.itemType" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+          <div class="config-form">
+            <div class="form-group">
+              <label class="form-label">Item Type</label>
+              <select v-model="config.itemType" class="form-select">
                 <option value="customers">New Customers</option>
                 <option value="orders">Recent Orders</option>
                 <option value="products">New Products</option>
@@ -152,9 +152,9 @@
               </select>
             </div>
 
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Number of Items to Show</label>
-              <select v-model="config.itemCount" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+            <div class="form-group">
+              <label class="form-label">Number of Items to Show</label>
+              <select v-model="config.itemCount" class="form-select">
                 <option value="5">5 items</option>
                 <option value="10">10 items</option>
                 <option value="15">15 items</option>
@@ -166,33 +166,33 @@
 
         <!-- User Profile Configuration -->
         <div v-else-if="selectedType?.id === 'user-profile'">
-          <h3 class="text-lg font-bold text-gray-900 mb-4">Configure User Profile</h3>
-          <p class="text-sm text-gray-600 mb-4">User profile widget will display your current profile information. No additional configuration needed.</p>
+          <h3 class="config-title">Configure User Profile</h3>
+          <p class="config-description">User profile widget will display your current profile information. No additional configuration needed.</p>
         </div>
       </div>
 
       <!-- Footer -->
-      <div class="flex items-center justify-between p-6 border-t border-gray-200 bg-gray-50">
+      <div class="modal-footer">
         <button 
           v-if="currentStep === 2"
           @click="currentStep = 1"
-          class="px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-lg transition"
+          class="back-button"
         >
           ← Back
         </button>
         <div v-else></div>
         
-        <div class="flex space-x-3">
+        <div class="footer-actions">
           <button 
             @click="$emit('close')"
-            class="px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-lg transition"
+            class="cancel-button"
           >
             Cancel
           </button>
           <button 
             v-if="currentStep === 2"
             @click="handleAddWidget"
-            class="px-6 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg transition font-medium"
+            class="submit-button"
           >
             Add Widget
           </button>
@@ -232,54 +232,48 @@ const widgetTypes = [
     name: 'Bar Chart',
     description: 'Compare data with stacked bars',
     icon: 'mdi:chart-bar-stacked',
-    iconColor: 'text-green-600',
-    bgColor: 'bg-green-100',
-    component: 'PaymentChartWidget'
+    iconColor: 'text-green',
+    bgColor: 'bg-green'
   },
   {
     id: 'line-graph',
     name: 'Line Graph',
     description: 'Track trends over time',
     icon: 'mdi:chart-line',
-    iconColor: 'text-purple-600',
-    bgColor: 'bg-purple-100',
-    component: 'PurchasesChartWidget'
+    iconColor: 'text-purple',
+    bgColor: 'bg-purple'
   },
   {
     id: 'number',
     name: 'Number',
     description: 'Display a single metric',
     icon: 'mdi:numeric',
-    iconColor: 'text-blue-600',
-    bgColor: 'bg-blue-100',
-    component: 'NumberWidget'
+    iconColor: 'text-blue',
+    bgColor: 'bg-blue'
   },
   {
     id: 'quick-links',
     name: 'Quick Links',
     description: 'Shortcuts to actions',
     icon: 'mdi:link-variant',
-    iconColor: 'text-orange-600',
-    bgColor: 'bg-orange-100',
-    component: 'QuickLinksWidget'
+    iconColor: 'text-orange',
+    bgColor: 'bg-orange'
   },
   {
     id: 'recent-items',
     name: 'Recent Items',
     description: 'List of recent activity',
     icon: 'mdi:format-list-bulleted',
-    iconColor: 'text-indigo-600',
-    bgColor: 'bg-indigo-100',
-    component: 'NewCustomersWidget'
+    iconColor: 'text-indigo',
+    bgColor: 'bg-indigo'
   },
   {
     id: 'user-profile',
     name: 'User Profile',
     description: 'Display user information',
     icon: 'mdi:account-circle',
-    iconColor: 'text-pink-600',
-    bgColor: 'bg-pink-100',
-    component: 'UserProfileWidget'
+    iconColor: 'text-pink',
+    bgColor: 'bg-pink'
   }
 ]
 
@@ -312,3 +306,282 @@ const handleAddWidget = () => {
   })
 }
 </script>
+
+<style scoped>
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 1rem;
+}
+
+.modal-container {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 48rem;
+  width: 100%;
+  max-height: 85vh;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.modal-subtitle {
+  font-size: 0.875rem;
+  color: var(--gray-500);
+  margin-top: 0.25rem;
+}
+
+.close-button {
+  color: var(--gray-400);
+  transition: color 0.15s ease-in-out;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.close-button:hover {
+  color: var(--gray-600);
+}
+
+.close-icon {
+  font-size: 1.5rem;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(85vh - 180px);
+}
+
+.intro-text {
+  color: var(--gray-600);
+  margin-bottom: 1.5rem;
+}
+
+.widget-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.widget-type-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  border: 2px solid var(--gray-200);
+  border-radius: 0.75rem;
+  transition: all 0.15s ease-in-out;
+  background: white;
+  cursor: pointer;
+}
+
+.widget-type-button:hover {
+  border-color: rgb(var(--color-primary-rgb));
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+.widget-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  transition: transform 0.15s ease-in-out;
+}
+
+.widget-type-button:hover .widget-icon {
+  transform: scale(1.1);
+}
+
+.icon {
+  font-size: 1.875rem;
+}
+
+.bg-green {
+  background-color: var(--green-100);
+}
+
+.text-green {
+  color: var(--green-600);
+}
+
+.bg-purple {
+  background-color: var(--purple-100);
+}
+
+.text-purple {
+  color: var(--purple-600);
+}
+
+.bg-blue {
+  background-color: var(--blue-100);
+}
+
+.text-blue {
+  color: var(--blue-600);
+}
+
+.bg-orange {
+  background-color: var(--orange-50);
+}
+
+.text-orange {
+  color: var(--orange-500);
+}
+
+.bg-indigo {
+  background-color: var(--indigo-100);
+}
+
+.text-indigo {
+  color: var(--indigo-600);
+}
+
+.bg-pink {
+  background-color: var(--pink-100);
+}
+
+.text-pink {
+  color: var(--pink-600);
+}
+
+.widget-type-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 0.25rem;
+}
+
+.widget-type-description {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  text-align: center;
+}
+
+.config-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 1rem;
+}
+
+.config-description {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  margin-bottom: 1rem;
+}
+
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-700);
+  margin-bottom: 0.5rem;
+}
+
+.form-select {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 0.5rem;
+  outline: none;
+  transition: all 0.15s ease-in-out;
+  background-color: white;
+  cursor: pointer;
+}
+
+.form-select:focus {
+  box-shadow: 0 0 0 2px rgb(var(--color-primary-rgb) / 0.2);
+  border-color: transparent;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-top: 1px solid var(--gray-200);
+  background-color: var(--gray-50);
+}
+
+.back-button {
+  padding: 0.5rem 1rem;
+  color: var(--gray-700);
+  background: none;
+  border: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: var(--gray-200);
+}
+
+.footer-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.cancel-button {
+  padding: 0.5rem 1rem;
+  color: var(--gray-700);
+  background: none;
+  border: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: var(--gray-200);
+}
+
+.submit-button {
+  padding: 0.5rem 1.5rem;
+  background-color: rgb(var(--color-primary-rgb));
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: var(--color-primary-dark);
+}
+</style>

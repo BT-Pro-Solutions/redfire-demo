@@ -1,22 +1,22 @@
 <template>
-  <div class="bg-white rounded-2xl border border-gray-100 p-6 h-full flex flex-col">
-    <div class="flex items-center justify-between mb-4">
-      <h3 class="text-lg font-bold text-gray-900">New Customers</h3>
-      <div class="w-10 h-10 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl flex items-center justify-center">
-        <Icon icon="mdi:account-multiple-plus" class="text-xl text-purple-600" />
+  <div class="widget-container">
+    <div class="widget-header">
+      <h3 class="widget-title">New Customers</h3>
+      <div class="widget-icon">
+        <Icon icon="mdi:account-multiple-plus" class="icon" />
       </div>
     </div>
     
-    <div class="flex-1 overflow-y-auto space-y-1.5">
+    <div class="customer-list">
       <div 
         v-for="customer in customers" 
         :key="customer.email"
-        class="flex items-start p-2.5 hover:bg-gray-50 rounded-lg transition"
+        class="customer-item"
       >
-        <div class="flex-1 min-w-0">
-          <div class="font-semibold text-gray-900 text-sm truncate">{{ customer.name }}</div>
-          <div class="text-xs text-gray-500 truncate">{{ customer.email }}</div>
-          <div class="text-xs text-gray-400">{{ formatDate(customer.dateAdded) }}</div>
+        <div class="customer-info">
+          <div class="customer-name">{{ customer.name }}</div>
+          <div class="customer-email">{{ customer.email }}</div>
+          <div class="customer-date">{{ formatDate(customer.dateAdded) }}</div>
         </div>
       </div>
     </div>
@@ -47,4 +47,89 @@ const formatDate = (dateStr) => {
 }
 </script>
 
+<style scoped>
+.widget-container {
+  background-color: white;
+  border-radius: 1rem;
+  border: 1px solid var(--gray-100);
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
+.widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.widget-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.widget-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: linear-gradient(to bottom right, #fce7f3, #fce7f3);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  font-size: 1.25rem;
+  color: var(--purple-600);
+}
+
+.customer-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.customer-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.625rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.customer-item:hover {
+  background-color: var(--gray-50);
+}
+
+.customer-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.customer-name {
+  font-weight: 600;
+  color: var(--gray-900);
+  font-size: 0.875rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.customer-email {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.customer-date {
+  font-size: 0.75rem;
+  color: var(--gray-400);
+}
+</style>

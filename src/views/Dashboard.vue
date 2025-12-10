@@ -1,19 +1,19 @@
 <template>
   <div>
-    <div class="mb-6">
-      <h1 class="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
-      <p class="text-gray-600">Welcome back, {{ userName }}</p>
+    <div class="page-header">
+      <h1 class="page-title">Dashboard</h1>
+      <p class="page-subtitle">Welcome back, {{ userName }}</p>
     </div>
 
-    <div class="dashboard-grid-container hidden lg:block">
+    <div class="dashboard-grid-container">
       <div class="dashboard-shadow-grid">
         <div
           v-for="n in 12"
           :key="`shadow-${n}`"
           @click="handleEmptySlotClick(((n-1) % 4), Math.floor((n-1) / 4))"
-          class="bg-gray backdrop-blur-sm rounded-2xl border-2 border-dashed border-gray-200 hover:border-primary hover:bg-white/80 transition cursor-pointer flex items-center justify-center group"
+          class="empty-slot"
         >
-          <Icon icon="mdi:plus" class="text-6xl text-gray-300 opacity-50 group-hover:opacity-100 group-hover:text-primary transition" />
+          <Icon icon="mdi:plus" class="empty-slot-icon" />
         </div>
       </div>
 
@@ -60,21 +60,21 @@
       </div>
     </div>
 
-    <div class="hidden md:grid lg:hidden grid-cols-2 gap-6">
+    <div class="tablet-grid">
       <div
         v-for="item in widgetLayout"
         :key="item.i"
-        style="min-height: 300px;"
+        class="tablet-widget"
       >
         <component :is="getWidgetComponent(item.component)" />
       </div>
     </div>
 
-    <div class="grid md:hidden grid-cols-1 gap-6">
+    <div class="mobile-grid">
       <div
         v-for="item in widgetLayout"
         :key="item.i"
-        style="min-height: 300px;"
+        class="mobile-widget"
       >
         <component :is="getWidgetComponent(item.component)" />
       </div>
@@ -87,29 +87,29 @@
     />
     <div 
       v-if="showRemoveConfirm"
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      class="modal-overlay"
       @click.self="cancelRemove"
     >
-      <div class="bg-white rounded-lg shadow-2xl p-6 max-w-md w-full mx-4">
-        <div class="flex items-start space-x-4 mb-4">
-          <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-            <Icon icon="mdi:alert" class="text-2xl text-red-600" />
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="alert-icon">
+            <Icon icon="mdi:alert" class="alert-icon-svg" />
           </div>
           <div>
-            <h3 class="text-lg font-bold text-gray-900 mb-2">Remove Widget?</h3>
-            <p class="text-sm text-gray-600">Are you sure you want to remove this widget from your dashboard?</p>
+            <h3 class="modal-title">Remove Widget?</h3>
+            <p class="modal-text">Are you sure you want to remove this widget from your dashboard?</p>
           </div>
         </div>
-        <div class="flex justify-end space-x-3">
+        <div class="modal-actions">
           <button
             @click="cancelRemove"
-            class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
+            class="button-cancel"
           >
             Cancel
           </button>
           <button
             @click="removeWidget"
-            class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition"
+            class="button-remove"
           >
             Remove
           </button>
@@ -255,10 +255,26 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.page-header {
+  margin-bottom: 1.5rem;
+}
+
+.page-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  color: var(--gray-600);
+}
+
 .dashboard-grid-container {
   position: relative;
   height: calc(100vh - 280px);
   min-height: 500px;
+  display: none;
 }
 
 .dashboard-shadow-grid {
@@ -269,6 +285,35 @@ onMounted(() => {
   grid-template-rows: repeat(3, 1fr);
   gap: 24px;
   padding: 24px;
+}
+
+.empty-slot {
+  background-color: var(--gray-200);
+  backdrop-filter: blur(4px);
+  border-radius: 1rem;
+  border: 2px dashed var(--gray-200);
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-slot:hover {
+  border-color: rgb(var(--color-primary-rgb));
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.empty-slot-icon {
+  font-size: 4rem;
+  color: var(--gray-300);
+  opacity: 0.5;
+  transition: all 0.15s ease-in-out;
+}
+
+.empty-slot:hover .empty-slot-icon {
+  opacity: 1;
+  color: rgb(var(--color-primary-rgb));
 }
 
 .dashboard-widget-grid {
@@ -325,6 +370,115 @@ onMounted(() => {
   transform: scale(1.05);
 }
 
+.tablet-grid {
+  display: none;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.tablet-widget {
+  min-height: 300px;
+}
+
+.mobile-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+.mobile-widget {
+  min-height: 300px;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 1.5rem;
+  max-width: 28rem;
+  width: 100%;
+  margin: 1rem;
+}
+
+.modal-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.alert-icon {
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--red-100);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.alert-icon-svg {
+  font-size: 1.5rem;
+  color: var(--red-600);
+}
+
+.modal-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.modal-text {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.button-cancel {
+  padding: 0.5rem 1rem;
+  color: var(--gray-700);
+  background: none;
+  border: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.button-cancel:hover {
+  background-color: var(--gray-100);
+}
+
+.button-remove {
+  padding: 0.5rem 1rem;
+  background-color: var(--red-600);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.button-remove:hover {
+  background-color: var(--red-700);
+}
+
 :deep(.vue-grid-item) {
   pointer-events: auto !important;
   will-change: transform;
@@ -374,8 +528,22 @@ onMounted(() => {
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.8);
 }
 
-@media (max-width: 1023px) {
+@media (min-width: 768px) {
+  .mobile-grid {
+    display: none;
+  }
+  
+  .tablet-grid {
+    display: grid;
+  }
+}
+
+@media (min-width: 1024px) {
   .dashboard-grid-container {
+    display: block;
+  }
+  
+  .tablet-grid {
     display: none;
   }
 }

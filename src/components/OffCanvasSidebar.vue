@@ -3,7 +3,7 @@
     <transition name="fade">
       <div 
         v-if="isOpen"
-        class="fixed inset-0 z-50 sidebar-backdrop" 
+        class="sidebar-backdrop" 
         @click="$emit('close')"
       ></div>
     </transition>
@@ -11,16 +11,16 @@
     <transition name="slide">
       <div 
         v-if="isOpen"
-        class="fixed right-[5px] top-[5px] bottom-[5px] w-full max-w-full md:max-w-2xl bg-white shadow-2xl flex flex-col z-50 rounded-lg overflow-hidden md:right-[5px] right-0 md:top-[5px] top-0 md:bottom-[5px] bottom-0 md:rounded-lg rounded-none"
+        class="sidebar-panel"
       >
-        <div class="px-6 py-4 flex items-center justify-between border-b border-gray-200">
-          <h2 class="text-xl font-bold text-gray-900">{{ title }}</h2>
-          <button @click="$emit('close')" class="hover:bg-gray-100 p-2 rounded transition text-gray-600">
-            <Icon icon="mdi:close" class="text-2xl" />
+        <div class="sidebar-header">
+          <h2 class="sidebar-title">{{ title }}</h2>
+          <button @click="$emit('close')" class="close-button">
+            <Icon icon="mdi:close" class="close-icon" />
           </button>
         </div>
 
-        <div class="flex-1 overflow-y-auto p-6 sidebar-content">
+        <div class="sidebar-content">
           <component :is="formComponent" :data="data" @save="handleSave" />
         </div>
       </div>
@@ -64,11 +64,74 @@ const handleSave = (data) => {
 
 <style scoped>
 .sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
   background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(1px);
 }
 
+.sidebar-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 100%;
+  background-color: white;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .sidebar-panel {
+    right: 5px;
+    top: 5px;
+    bottom: 5px;
+    max-width: 42rem;
+    border-radius: 0.5rem;
+  }
+}
+
+.sidebar-header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.sidebar-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.close-button {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.15s ease-in-out;
+  color: var(--gray-600);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: var(--gray-100);
+}
+
+.close-icon {
+  font-size: 1.5rem;
+}
+
 .sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -103,4 +166,3 @@ const handleSave = (data) => {
   opacity: 0;
 }
 </style>
-

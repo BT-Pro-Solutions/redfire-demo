@@ -1,45 +1,16 @@
 <template>
-  <div class="bg-white rounded-2xl border border-gray-100 p-6 h-full flex flex-col">
-    <div class="flex items-center justify-between mb-4">
-      <h3 class="text-lg font-bold text-gray-900">Weekly Purchases</h3>
-      <div class="w-10 h-10 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl flex items-center justify-center">
-        <Icon icon="mdi:cart-outline" class="text-xl text-blue-600" />
+  <div class="widget-container">
+    <div class="widget-header">
+      <h3 class="widget-title">Weekly Purchases</h3>
+      <div class="widget-icon">
+        <Icon icon="mdi:cart-outline" class="icon" />
       </div>
     </div>
-    <div class="flex-1 min-h-0 line-chart-container">
+    <div class="chart-wrapper">
       <Line ref="chartRef" :data="chartData" :options="chartOptions" :key="chartKey" />
     </div>
   </div>
 </template>
-
-<style scoped>
-/* Reveal line chart from left to right */
-.line-chart-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.line-chart-container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: white;
-  animation: revealChart 2s ease-out forwards;
-  pointer-events: none;
-}
-
-@keyframes revealChart {
-  from {
-    clip-path: inset(0 0 0 0);
-  }
-  to {
-    clip-path: inset(0 0 0 100%);
-  }
-}
-</style>
 
 <script setup>
 import { computed, shallowRef, ref, onMounted } from 'vue'
@@ -204,3 +175,71 @@ const chartOptions = shallowRef({
 })
 </script>
 
+<style scoped>
+.widget-container {
+  background-color: white;
+  border-radius: 1rem;
+  border: 1px solid var(--gray-100);
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.widget-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.widget-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: linear-gradient(to bottom right, #dbeafe, #e0e7ff);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  font-size: 1.25rem;
+  color: var(--blue-600);
+}
+
+.chart-wrapper {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Reveal line chart from left to right */
+.chart-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  animation: revealChart 2s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes revealChart {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 100%);
+  }
+}
+</style>

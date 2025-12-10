@@ -1,12 +1,12 @@
 <template>
-  <div class="bg-white rounded-2xl border border-gray-100 p-6 h-full flex flex-col">
-    <div class="flex items-center justify-between mb-4">
-      <h3 class="text-lg font-bold text-gray-900">Weekly Payments</h3>
-      <div class="w-10 h-10 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl flex items-center justify-center">
-        <Icon icon="mdi:cash-multiple" class="text-xl text-emerald-600" />
+  <div class="widget-container">
+    <div class="widget-header">
+      <h3 class="widget-title">Weekly Payments</h3>
+      <div class="widget-icon">
+        <Icon icon="mdi:cash-multiple" class="icon" />
       </div>
     </div>
-    <div class="flex-1 min-h-0">
+    <div class="chart-container">
       <Bar ref="chartRef" :data="chartData" :options="chartOptions" :key="chartKey" />
     </div>
   </div>
@@ -205,3 +205,47 @@ const chartOptions = shallowRef({
 })
 </script>
 
+<style scoped>
+.widget-container {
+  background-color: white;
+  border-radius: 1rem;
+  border: 1px solid var(--gray-100);
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.widget-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.widget-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: linear-gradient(to bottom right, #dcfce7, #ccfbf1);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  font-size: 1.25rem;
+  color: #059669;
+}
+
+.chart-container {
+  flex: 1;
+  min-height: 0;
+}
+</style>

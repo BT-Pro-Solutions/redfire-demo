@@ -1,65 +1,65 @@
 <template>
-  <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden">
-    <div class="p-4 md:p-6 border-b border-gray-200">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl md:text-2xl font-bold text-gray-900">{{ title }}</h2>
+  <div class="data-table">
+    <div class="table-header">
+      <div class="header-top">
+        <h2 class="table-title">{{ title }}</h2>
         <button 
           @click="$emit('add')"
-          class="px-3 py-2 md:px-4 md:py-2 text-white rounded-xl transition hover:opacity-90 flex items-center space-x-2"
+          class="add-button"
           :style="`background-color: rgb(var(--color-primary-rgb))`"
         >
-          <Icon icon="mdi:plus" class="flex-shrink-0" />
-          <span class="hidden sm:inline">Add {{ addButtonLabel }}</span>
+          <Icon icon="mdi:plus" class="add-icon" />
+          <span class="add-text">Add {{ addButtonLabel }}</span>
         </button>
       </div>
 
-      <div class="flex items-center flex-wrap gap-2 md:gap-4">
-        <div class="flex-1 min-w-[200px] relative">
-          <Icon icon="mdi:magnify" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+      <div class="header-controls">
+        <div class="search-container">
+          <Icon icon="mdi:magnify" class="search-icon" />
           <input
             v-model="searchQuery"
             type="text"
             placeholder="Search..."
-            class="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white outline-none transition"
+            class="search-input"
           />
         </div>
         
-        <div class="relative">
+        <div class="control-group">
           <button 
             @click="showDateRange = !showDateRange"
-            class="px-3 py-2 md:px-4 md:py-2 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition flex items-center space-x-2"
+            class="control-button"
           >
-            <Icon icon="mdi:calendar-range" class="flex-shrink-0" />
-            <span class="hidden md:inline">Date Range</span>
+            <Icon icon="mdi:calendar-range" class="control-icon" />
+            <span class="control-text">Date Range</span>
           </button>
           
-          <div v-if="showDateRange" class="absolute right-0 top-full mt-2 bg-white rounded-2xl border border-gray-200 p-4 z-50 w-80 max-w-[calc(100vw-2rem)]">
-            <div class="mb-3">
-              <label class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+          <div v-if="showDateRange" class="dropdown date-dropdown">
+            <div class="date-range-group">
+              <label class="date-label">Start Date</label>
               <input 
                 v-model="startDate"
                 type="date" 
-                class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white outline-none transition"
+                class="date-input"
               />
             </div>
-            <div class="mb-4">
-              <label class="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+            <div class="date-range-group">
+              <label class="date-label">End Date</label>
               <input 
                 v-model="endDate"
                 type="date" 
-                class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:bg-white outline-none transition"
+                class="date-input"
               />
             </div>
-            <div class="flex justify-end space-x-2">
+            <div class="date-actions">
               <button 
                 @click="clearDateRange"
-                class="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded-xl transition"
+                class="date-clear-button"
               >
                 Clear
               </button>
               <button 
                 @click="applyDateRange"
-                class="px-3 py-1.5 text-sm text-white rounded-xl transition hover:opacity-90"
+                class="date-apply-button"
                 :style="`background-color: rgb(var(--color-primary-rgb))`"
               >
                 Apply
@@ -68,43 +68,43 @@
           </div>
         </div>
         
-        <div class="relative">
+        <div class="control-group">
           <button 
             @click="showColumnPicker = !showColumnPicker"
-            class="px-3 py-2 md:px-4 md:py-2 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition flex items-center space-x-2"
+            class="control-button"
           >
-            <Icon icon="mdi:table-cog" class="flex-shrink-0" />
-            <span class="hidden md:inline">Columns</span>
+            <Icon icon="mdi:table-cog" class="control-icon" />
+            <span class="control-text">Columns</span>
           </button>
           
-          <div v-if="showColumnPicker" class="absolute right-0 top-full mt-2 bg-white rounded-2xl border border-gray-200 p-4 z-50 w-64 max-w-[calc(100vw-2rem)]">
-            <div class="mb-3">
-              <h3 class="text-sm font-semibold text-gray-900">Show/Hide Columns</h3>
+          <div v-if="showColumnPicker" class="dropdown column-dropdown">
+            <div class="dropdown-header">
+              <h3 class="dropdown-title">Show/Hide Columns</h3>
             </div>
-            <div class="space-y-2 max-h-64 overflow-y-auto">
+            <div class="column-list">
               <label 
                 v-for="column in columns"
                 :key="column.key"
-                class="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition"
+                class="column-item"
               >
                 <input 
                   type="checkbox"
                   v-model="visibleColumns[column.key]"
-                  class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                  class="column-checkbox"
                 />
-                <span class="text-sm text-gray-700">{{ column.label }}</span>
+                <span class="column-label">{{ column.label }}</span>
               </label>
             </div>
-            <div class="mt-4 pt-3 border-t border-gray-200 flex justify-between">
+            <div class="column-actions">
               <button 
                 @click="showAllColumns"
-                class="text-xs text-primary hover:text-primary-dark"
+                class="show-all-button"
               >
                 Show All
               </button>
               <button 
                 @click="showColumnPicker = false"
-                class="px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 rounded-xl transition"
+                class="done-button"
               >
                 Done
               </button>
@@ -112,54 +112,54 @@
           </div>
         </div>
         
-        <button class="px-3 py-2 md:px-4 md:py-2 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition flex items-center space-x-2">
-          <Icon icon="mdi:download" class="flex-shrink-0" />
-          <span class="hidden md:inline">Export</span>
+        <button class="control-button">
+          <Icon icon="mdi:download" class="control-icon" />
+          <span class="control-text">Export</span>
         </button>
       </div>
     </div>
 
-    <div class="overflow-x-auto">
-      <div class="max-h-[calc(100vh-350px)] overflow-y-auto">
-        <table class="w-full">
-          <thead class="bg-gray-50 sticky top-0 z-10">
+    <div class="table-wrapper">
+      <div class="table-scroll">
+        <table class="table">
+          <thead class="table-head">
             <tr>
               <th
                 v-for="column in visibleColumnsList"
                 :key="column.key"
                 @click="handleSort(column.key)"
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition"
+                class="table-header-cell"
               >
-                <div class="flex items-center space-x-2">
+                <div class="header-cell-content">
                   <span>{{ column.label }}</span>
                   <Icon
                     v-if="sortKey === column.key"
                     :icon="sortOrder === 'asc' ? 'mdi:arrow-up' : 'mdi:arrow-down'"
-                    class="text-primary"
+                    class="sort-icon"
                   />
                 </div>
               </th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
+          <tbody class="table-body">
             <tr
               v-for="row in sortedData"
               :key="row.id"
               @click="$emit('edit', row)"
-              class="hover:bg-blue-50/50 transition cursor-pointer"
+              class="table-row"
             >
               <td
                 v-for="column in visibleColumnsList"
                 :key="column.key"
-                class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                class="table-cell"
               >
                 {{ row[column.key] }}
               </td>
             </tr>
           </tbody>
-          <tfoot v-if="showTotal" class="bg-gray-50 sticky bottom-0">
+          <tfoot v-if="showTotal" class="table-foot">
             <tr>
-              <td colspan="999" class="px-6 py-4 text-sm font-bold text-gray-900">
+              <td colspan="999" class="table-footer-cell">
                 Total: {{ data.length }} items
               </td>
             </tr>
@@ -209,7 +209,7 @@ onUnmounted(() => {
 
 const handleClickOutside = (event) => {
   const target = event.target
-  if (!target.closest('.relative')) {
+  if (!target.closest('.control-group')) {
     showDateRange.value = false
     showColumnPicker.value = false
   }
@@ -271,3 +271,394 @@ const sortedData = computed(() => {
 })
 </script>
 
+<style scoped>
+.data-table {
+  background-color: white;
+  border-radius: 1rem;
+  border: 1px solid var(--gray-100);
+  overflow: hidden;
+}
+
+.table-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.table-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.add-button {
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 0.75rem;
+  transition: opacity 0.15s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  opacity: 0.9;
+}
+
+.add-icon {
+  flex-shrink: 0;
+}
+
+.add-text {
+  display: none;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.search-container {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-400);
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  background-color: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 0.75rem;
+  outline: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 0 2px rgb(var(--color-primary-rgb) / 0.2);
+  border-color: transparent;
+  background-color: white;
+}
+
+.control-group {
+  position: relative;
+}
+
+.control-button {
+  padding: 0.5rem 1rem;
+  background-color: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 0.75rem;
+  transition: background-color 0.15s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.control-button:hover {
+  background-color: var(--gray-100);
+}
+
+.control-icon {
+  flex-shrink: 0;
+}
+
+.control-text {
+  display: none;
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.5rem;
+  background-color: white;
+  border-radius: 1rem;
+  border: 1px solid var(--gray-200);
+  padding: 1rem;
+  z-index: 50;
+  width: 20rem;
+  max-width: calc(100vw - 2rem);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.date-dropdown {
+  width: 20rem;
+}
+
+.date-range-group {
+  margin-bottom: 0.75rem;
+}
+
+.date-range-group:last-of-type {
+  margin-bottom: 1rem;
+}
+
+.date-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-700);
+  margin-bottom: 0.25rem;
+}
+
+.date-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 0.75rem;
+  outline: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.date-input:focus {
+  box-shadow: 0 0 0 2px rgb(var(--color-primary-rgb) / 0.2);
+  border-color: transparent;
+  background-color: white;
+}
+
+.date-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.date-clear-button {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  background: none;
+  border: none;
+  border-radius: 0.75rem;
+  transition: background-color 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.date-clear-button:hover {
+  background-color: var(--gray-100);
+}
+
+.date-apply-button {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  transition: opacity 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.date-apply-button:hover {
+  opacity: 0.9;
+}
+
+.column-dropdown {
+  width: 16rem;
+}
+
+.dropdown-header {
+  margin-bottom: 0.75rem;
+}
+
+.dropdown-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.column-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 16rem;
+  overflow-y: auto;
+}
+
+.column-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.column-item:hover {
+  background-color: var(--gray-50);
+}
+
+.column-checkbox {
+  width: 1rem;
+  height: 1rem;
+  color: rgb(var(--color-primary-rgb));
+  border: 1px solid var(--gray-300);
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.column-checkbox:focus {
+  box-shadow: 0 0 0 2px rgb(var(--color-primary-rgb) / 0.2);
+}
+
+.column-label {
+  font-size: 0.875rem;
+  color: var(--gray-700);
+}
+
+.column-actions {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: space-between;
+}
+
+.show-all-button {
+  font-size: 0.75rem;
+  color: rgb(var(--color-primary-rgb));
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.show-all-button:hover {
+  color: var(--color-primary-dark);
+}
+
+.done-button {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  background-color: var(--gray-100);
+  border: none;
+  border-radius: 0.75rem;
+  transition: background-color 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.done-button:hover {
+  background-color: var(--gray-200);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.table-scroll {
+  max-height: calc(100vh - 350px);
+  overflow-y: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-head {
+  background-color: var(--gray-50);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.table-header-cell {
+  padding: 0.75rem 1.5rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.table-header-cell:hover {
+  background-color: var(--gray-100);
+}
+
+.header-cell-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sort-icon {
+  color: rgb(var(--color-primary-rgb));
+}
+
+.table-body {
+  background-color: white;
+}
+
+.table-row {
+  transition: background-color 0.15s ease-in-out;
+  cursor: pointer;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.table-row:hover {
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+.table-cell {
+  padding: 1rem 1.5rem;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  color: var(--gray-900);
+}
+
+.table-foot {
+  background-color: var(--gray-50);
+  position: sticky;
+  bottom: 0;
+}
+
+.table-footer-cell {
+  padding: 1rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+@media (min-width: 640px) {
+  .add-text {
+    display: inline;
+  }
+}
+
+@media (min-width: 768px) {
+  .table-header {
+    padding: 1.5rem;
+  }
+  
+  .header-controls {
+    gap: 1rem;
+  }
+  
+  .control-text {
+    display: inline;
+  }
+}
+</style>

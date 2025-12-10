@@ -1,117 +1,117 @@
 <template>
   <div>
-    <div class="mb-6">
-      <h1 class="text-3xl font-bold text-gray-900 mb-2">Theme Settings</h1>
-      <p class="text-gray-600">Customize your dashboard appearance</p>
+    <div class="page-header">
+      <h1 class="page-title">Theme Settings</h1>
+      <p class="page-subtitle">Customize your dashboard appearance</p>
     </div>
 
-    <div class="space-y-6">
+    <div class="settings-grid">
       <!-- Profile Picture -->
-      <div class="bg-white rounded-2xl border border-gray-100 p-6">
-        <h2 class="text-xl font-bold text-gray-900 mb-4">Profile Picture</h2>
-        <div class="flex items-center space-x-6">
-          <div class="w-24 h-24 rounded-xl overflow-hidden border-2 border-gray-200">
-            <img :src="previewAvatar" alt="Profile" class="w-full h-full object-cover" />
+      <div class="setting-card">
+        <h2 class="card-title">Profile Picture</h2>
+        <div class="avatar-section">
+          <div class="avatar-preview">
+            <img :src="previewAvatar" alt="Profile" class="avatar-image" />
           </div>
-          <div class="flex-1">
-            <label class="block">
+          <div class="avatar-controls">
+            <label>
               <input 
                 type="file" 
                 @change="handleAvatarChange" 
                 accept="image/*"
-                class="hidden"
+                class="file-input"
                 ref="avatarInput"
               />
               <button 
                 @click="$refs.avatarInput.click()"
-                class="px-4 py-2 text-white rounded-xl transition hover:opacity-90"
+                class="upload-button"
                 :style="`background-color: ${primaryColor}`"
               >
                 Upload New Picture
               </button>
             </label>
-            <p class="text-sm text-gray-500 mt-2">JPG, PNG or WEBP. Max 2MB.</p>
+            <p class="upload-hint">JPG, PNG or WEBP. Max 2MB.</p>
           </div>
         </div>
       </div>
 
       <!-- Background Image -->
-      <div class="bg-white rounded-2xl border border-gray-100 p-6">
-        <h2 class="text-xl font-bold text-gray-900 mb-4">Background Image</h2>
-        <div class="flex items-center space-x-6">
-          <div class="w-32 h-24 rounded-xl overflow-hidden border-2 border-gray-200">
-            <img :src="previewBackground" alt="Background" class="w-full h-full object-cover" />
+      <div class="setting-card">
+        <h2 class="card-title">Background Image</h2>
+        <div class="avatar-section">
+          <div class="background-preview">
+            <img :src="previewBackground" alt="Background" class="background-image" />
           </div>
-          <div class="flex-1">
-            <label class="block">
+          <div class="avatar-controls">
+            <label>
               <input 
                 type="file" 
                 @change="handleBackgroundChange" 
                 accept="image/*"
-                class="hidden"
+                class="file-input"
                 ref="bgInput"
               />
               <button 
                 @click="$refs.bgInput.click()"
-                class="px-4 py-2 text-white rounded-xl transition hover:opacity-90"
+                class="upload-button"
                 :style="`background-color: ${primaryColor}`"
               >
                 Upload New Background
               </button>
             </label>
-            <p class="text-sm text-gray-500 mt-2">JPG, PNG, WEBP or AVIF. Max 5MB.</p>
+            <p class="upload-hint">JPG, PNG, WEBP or AVIF. Max 5MB.</p>
           </div>
         </div>
       </div>
 
       <!-- Primary Color -->
-      <div class="bg-white rounded-2xl border border-gray-100 p-6">
-        <h2 class="text-xl font-bold text-gray-900 mb-4">Primary Color</h2>
+      <div class="setting-card">
+        <h2 class="card-title">Primary Color</h2>
         
         <!-- Live Preview -->
-        <div class="mb-6 p-4 bg-gray-50 rounded-xl">
-          <p class="text-sm font-medium text-gray-700 mb-3">Live Preview</p>
-          <div class="flex flex-wrap gap-3">
+        <div class="preview-section">
+          <p class="preview-label">Live Preview</p>
+          <div class="preview-items">
             <button 
-              class="px-4 py-2 text-white rounded-xl transition"
+              class="preview-button"
               :style="{ backgroundColor: primaryColor }"
             >
               Primary Button
             </button>
             <button 
-              class="px-4 py-2 border-2 rounded-xl transition"
+              class="preview-button-outlined"
               :style="{ borderColor: primaryColor, color: primaryColor }"
             >
               Outlined Button
             </button>
             <div 
-              class="w-10 h-10 rounded-xl"
+              class="preview-box"
               :style="{ backgroundColor: primaryColor }"
             ></div>
-            <div class="flex items-center space-x-2">
+            <div class="preview-indicator">
               <div 
-                class="w-1 h-8 rounded-full"
+                class="indicator-bar"
                 :style="{ backgroundColor: primaryColor }"
               ></div>
-              <span class="text-sm text-gray-600">Active Indicator</span>
+              <span class="indicator-text">Active Indicator</span>
             </div>
           </div>
         </div>
         
-        <div class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Choose your primary color</label>
-            <div class="flex items-center space-x-4">
+        <div class="color-settings">
+          <div class="color-picker-section">
+            <label class="color-label">Choose your primary color</label>
+            <div class="color-picker-container">
               <input 
                 type="color" 
                 v-model="primaryColor"
-                class="w-16 h-16 rounded-xl border-2 border-gray-200 cursor-pointer"
+                class="color-picker"
               />
-              <div class="flex-1">
+              <div class="color-input-wrapper">
                 <input 
                   type="text" 
                   v-model="primaryColor"
-                  class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                  class="color-text-input"
                   placeholder="#3b82f6"
                 />
               </div>
@@ -120,15 +120,15 @@
           
           <!-- Color Presets -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Or choose a preset</label>
-            <div class="grid grid-cols-8 gap-3">
+            <label class="color-label">Or choose a preset</label>
+            <div class="preset-grid">
               <button
                 v-for="color in colorPresets"
                 :key="color.value"
                 @click="primaryColor = color.value"
                 :style="{ backgroundColor: color.value }"
-                class="w-12 h-12 rounded-xl border-2 hover:scale-110 transition"
-                :class="primaryColor === color.value ? 'border-gray-900 ring-2 ring-offset-2 ring-gray-900' : 'border-gray-200'"
+                class="preset-button"
+                :class="{ 'preset-active': primaryColor === color.value }"
                 :title="color.name"
               ></button>
             </div>
@@ -137,16 +137,16 @@
       </div>
 
       <!-- Save Button -->
-      <div class="flex justify-end space-x-3">
+      <div class="action-buttons">
         <button 
           @click="resetToDefaults"
-          class="px-6 py-3 text-gray-700 hover:bg-gray-100 rounded-xl transition"
+          class="reset-button"
         >
           Reset to Defaults
         </button>
         <button 
           @click="saveSettings"
-          class="px-6 py-3 text-white rounded-xl transition hover:opacity-90"
+          class="save-button"
           :style="`background-color: ${primaryColor}`"
         >
           Save Changes
@@ -301,3 +301,268 @@ onMounted(() => {
 })
 </script>
 
+<style scoped>
+.page-header {
+  margin-bottom: 1.5rem;
+}
+
+.page-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  color: var(--gray-600);
+}
+
+.settings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.setting-card {
+  background-color: white;
+  border-radius: 1rem;
+  border: 1px solid var(--gray-100);
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 1rem;
+}
+
+.avatar-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.avatar-preview {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 2px solid var(--gray-200);
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.background-preview {
+  width: 8rem;
+  height: 6rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 2px solid var(--gray-200);
+}
+
+.background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-controls {
+  flex: 1;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-button {
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 0.75rem;
+  transition: opacity 0.15s ease-in-out;
+  border: none;
+  cursor: pointer;
+}
+
+.upload-button:hover {
+  opacity: 0.9;
+}
+
+.upload-hint {
+  font-size: 0.875rem;
+  color: var(--gray-500);
+  margin-top: 0.5rem;
+}
+
+.preview-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: var(--gray-50);
+  border-radius: 0.75rem;
+}
+
+.preview-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-700);
+  margin-bottom: 0.75rem;
+}
+
+.preview-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.preview-button {
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 0.75rem;
+  border: none;
+}
+
+.preview-button-outlined {
+  padding: 0.5rem 1rem;
+  border: 2px solid;
+  border-radius: 0.75rem;
+  background: transparent;
+}
+
+.preview-box {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+}
+
+.preview-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.indicator-bar {
+  width: 0.25rem;
+  height: 2rem;
+  border-radius: 9999px;
+}
+
+.indicator-text {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+}
+
+.color-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.color-picker-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.color-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-700);
+  margin-bottom: 0.5rem;
+}
+
+.color-picker-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.color-picker {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.75rem;
+  border: 2px solid var(--gray-200);
+  cursor: pointer;
+}
+
+.color-input-wrapper {
+  flex: 1;
+}
+
+.color-text-input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background-color: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 0.75rem;
+  outline: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.color-text-input:focus {
+  box-shadow: 0 0 0 2px rgb(var(--color-primary-rgb) / 0.2);
+  border-color: transparent;
+}
+
+.preset-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.75rem;
+}
+
+.preset-button {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  border: 2px solid var(--gray-200);
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+}
+
+.preset-button:hover {
+  transform: scale(1.1);
+}
+
+.preset-active {
+  border-color: var(--gray-900);
+  box-shadow: 0 0 0 2px var(--gray-900);
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.reset-button {
+  padding: 0.75rem 1.5rem;
+  color: var(--gray-700);
+  border-radius: 0.75rem;
+  transition: background-color 0.15s ease-in-out;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.reset-button:hover {
+  background-color: var(--gray-100);
+}
+
+.save-button {
+  padding: 0.75rem 1.5rem;
+  color: white;
+  border-radius: 0.75rem;
+  transition: opacity 0.15s ease-in-out;
+  border: none;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  opacity: 0.9;
+}
+</style>

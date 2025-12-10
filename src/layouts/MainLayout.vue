@@ -1,155 +1,152 @@
 <template>
-  <div class="h-screen bg-[#171923] flex overflow-hidden relative" 
+  <div class="layout-container" 
        :style="{ backgroundImage: `url(${bgUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
     <!-- Dark gradient overlay -->
-    <div class="absolute inset-0" style="background: linear-gradient(135deg, #171923 0%, rgba(23, 25, 35, 0.8) 100%);"></div>
+    <div class="gradient-overlay"></div>
     
     <div 
       v-if="mobileMenuOpen"
-      class="fixed inset-0 bg-black bg-opacity-90 z-40 lg:hidden"
+      class="mobile-overlay"
       @click="mobileMenuOpen = false"
-      style="backdrop-filter: blur(2px);"
     ></div>
 
     <!-- Dark Sidebar -->
     <aside 
-      class="w-64 bg-transparent text-white overflow-y-auto fixed md:static inset-y-0 left-0 z-40 transition-transform duration-300 md:w-20 lg:w-64 md:translate-x-0 md:flex-shrink-0 absolute md:relative"
-      :class="{ '-translate-x-full md:translate-x-0': !mobileMenuOpen }"
+      class="sidebar"
+      :class="{ 'sidebar-hidden': !mobileMenuOpen }"
     >
       <router-link 
         to="/"
-        class="px-6 py-6 h-[88px] flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
-        style="display: block;"
+        class="logo-link"
         tabindex="0"
       >
-        <div class="flex items-center space-x-3 md:justify-center lg:justify-start w-full">
-          <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg" style="background-color: rgb(var(--color-primary-rgb));">
-            <Icon icon="mdi:storefront" class="text-xl" />
+        <div class="logo-container">
+          <div class="logo-icon">
+            <Icon icon="mdi:storefront" class="icon" />
           </div>
-          <span class="text-xl font-bold md:hidden lg:inline">TestCorp</span>
+          <span class="logo-text">TestCorp</span>
         </div>
       </router-link>
 
-      <nav class="p-4 space-y-1">
+      <nav class="nav">
         <router-link
           to="/"
-          class="flex items-center space-x-3 py-3 rounded-lg hover:bg-white/5 transition md:justify-center lg:justify-start"
-          :class="$route.name === 'Dashboard' ? 'pl-3 pr-4' : 'px-4'"
-          :style="$route.name === 'Dashboard' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''"
+          class="nav-item"
+          :class="{ 'nav-item-active': $route.name === 'Dashboard' }"
         >
-          <Icon icon="mdi:view-dashboard" class="text-xl flex-shrink-0" />
-          <span class="md:hidden lg:inline">Dashboard</span>
+          <Icon icon="mdi:view-dashboard" class="nav-icon" />
+          <span class="nav-text">Dashboard</span>
         </router-link>
 
-        <div class="pt-4">
-          <div class="flex items-center space-x-3 px-4 py-2 text-gray-400 text-xs font-semibold uppercase tracking-wider md:justify-center lg:justify-start">
-            <Icon icon="mdi:package-variant" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline">Inventory</span>
+        <div class="nav-section">
+          <div class="nav-section-header">
+            <Icon icon="mdi:package-variant" class="nav-section-icon" />
+            <span class="nav-section-text">Inventory</span>
           </div>
-          <router-link to="/inventory/categories" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/inventory/categories' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/inventory/categories' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
-            <Icon icon="mdi:shape" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline text-sm">Categories</span>
+          <router-link to="/inventory/categories" class="nav-subitem" :class="{ 'nav-subitem-active': $route.path === '/inventory/categories' }">
+            <Icon icon="mdi:shape" class="nav-subitem-icon" />
+            <span class="nav-subitem-text">Categories</span>
           </router-link>
-          <router-link to="/inventory/groups" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/inventory/groups' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/inventory/groups' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
-            <Icon icon="mdi:group" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline text-sm">Groups</span>
+          <router-link to="/inventory/groups" class="nav-subitem" :class="{ 'nav-subitem-active': $route.path === '/inventory/groups' }">
+            <Icon icon="mdi:group" class="nav-subitem-icon" />
+            <span class="nav-subitem-text">Groups</span>
           </router-link>
-          <router-link to="/inventory/products" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/inventory/products' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/inventory/products' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
-            <Icon icon="mdi:shopping" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline text-sm">Retail Products</span>
+          <router-link to="/inventory/products" class="nav-subitem" :class="{ 'nav-subitem-active': $route.path === '/inventory/products' }">
+            <Icon icon="mdi:shopping" class="nav-subitem-icon" />
+            <span class="nav-subitem-text">Retail Products</span>
           </router-link>
         </div>
 
-        <div class="pt-4">
-          <div class="flex items-center space-x-3 px-4 py-2 text-gray-400 text-xs font-semibold uppercase tracking-wider md:justify-center lg:justify-start">
-            <Icon icon="mdi:account-cog" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline">Management</span>
+        <div class="nav-section">
+          <div class="nav-section-header">
+            <Icon icon="mdi:account-cog" class="nav-section-icon" />
+            <span class="nav-section-text">Management</span>
           </div>
-          <router-link to="/management/customers" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/management/customers' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/management/customers' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
-            <Icon icon="mdi:account-group" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline text-sm">Customers</span>
+          <router-link to="/management/customers" class="nav-subitem" :class="{ 'nav-subitem-active': $route.path === '/management/customers' }">
+            <Icon icon="mdi:account-group" class="nav-subitem-icon" />
+            <span class="nav-subitem-text">Customers</span>
           </router-link>
-          <router-link to="/management/users" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/management/users' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/management/users' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
-            <Icon icon="mdi:account-multiple" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline text-sm">Users</span>
+          <router-link to="/management/users" class="nav-subitem" :class="{ 'nav-subitem-active': $route.path === '/management/users' }">
+            <Icon icon="mdi:account-multiple" class="nav-subitem-icon" />
+            <span class="nav-subitem-text">Users</span>
           </router-link>
         </div>
 
-        <div class="pt-4">
-          <div class="flex items-center space-x-3 px-4 py-2 text-gray-400 text-xs font-semibold uppercase tracking-wider md:justify-center lg:justify-start">
-            <Icon icon="mdi:cash-multiple" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline">Payment</span>
+        <div class="nav-section">
+          <div class="nav-section-header">
+            <Icon icon="mdi:cash-multiple" class="nav-section-icon" />
+            <span class="nav-section-text">Payment</span>
           </div>
-          <router-link to="/payment/cash" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/payment/cash' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/payment/cash' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
-            <Icon icon="mdi:cash" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline text-sm">Cash</span>
+          <router-link to="/payment/cash" class="nav-subitem" :class="{ 'nav-subitem-active': $route.path === '/payment/cash' }">
+            <Icon icon="mdi:cash" class="nav-subitem-icon" />
+            <span class="nav-subitem-text">Cash</span>
           </router-link>
-          <router-link to="/payment/check" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/payment/check' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/payment/check' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
-            <Icon icon="mdi:checkbook" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline text-sm">Check</span>
+          <router-link to="/payment/check" class="nav-subitem" :class="{ 'nav-subitem-active': $route.path === '/payment/check' }">
+            <Icon icon="mdi:checkbook" class="nav-subitem-icon" />
+            <span class="nav-subitem-text">Check</span>
           </router-link>
-          <router-link to="/payment/credit-card" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/payment/credit-card' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/payment/credit-card' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
-            <Icon icon="mdi:credit-card" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline text-sm">Credit Card</span>
+          <router-link to="/payment/credit-card" class="nav-subitem" :class="{ 'nav-subitem-active': $route.path === '/payment/credit-card' }">
+            <Icon icon="mdi:credit-card" class="nav-subitem-icon" />
+            <span class="nav-subitem-text">Credit Card</span>
           </router-link>
         </div>
 
-        <div class="pt-4">
-          <div class="flex items-center space-x-3 px-4 py-2 text-gray-400 text-xs font-semibold uppercase tracking-wider md:justify-center lg:justify-start">
-            <Icon icon="mdi:cart" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline">Purchase</span>
+        <div class="nav-section">
+          <div class="nav-section-header">
+            <Icon icon="mdi:cart" class="nav-section-icon" />
+            <span class="nav-section-text">Purchase</span>
           </div>
-          <a href="#" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start">
-            <Icon icon="mdi:cart-remove" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline text-sm">Canceled Purchases</span>
+          <a href="#" class="nav-subitem">
+            <Icon icon="mdi:cart-remove" class="nav-subitem-icon" />
+            <span class="nav-subitem-text">Canceled Purchases</span>
           </a>
-          <router-link to="/purchase/completed" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/purchase/completed' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/purchase/completed' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
-            <Icon icon="mdi:cart-check" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline text-sm">Completed Purchases</span>
+          <router-link to="/purchase/completed" class="nav-subitem" :class="{ 'nav-subitem-active': $route.path === '/purchase/completed' }">
+            <Icon icon="mdi:cart-check" class="nav-subitem-icon" />
+            <span class="nav-subitem-text">Completed Purchases</span>
           </router-link>
-          <a href="#" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start">
-            <Icon icon="mdi:cart-outline" class="text-lg flex-shrink-0" />
-            <span class="md:hidden lg:inline text-sm">Open Purchases</span>
+          <a href="#" class="nav-subitem">
+            <Icon icon="mdi:cart-outline" class="nav-subitem-icon" />
+            <span class="nav-subitem-text">Open Purchases</span>
           </a>
         </div>
 
-        <div class="pt-4 pb-4">
-          <router-link to="/support" class="flex items-center space-x-3 py-3 rounded-lg hover:bg-white/5 transition md:justify-center lg:justify-start" :class="[$route.path === '/support' ? 'text-white pl-3 pr-4' : 'px-4']" :style="$route.path === '/support' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
-            <Icon icon="mdi:help-circle" class="text-xl flex-shrink-0" />
-            <span class="md:hidden lg:inline text-sm">Feedback/Support</span>
+        <div class="nav-section">
+          <router-link to="/support" class="nav-item" :class="{ 'nav-item-active': $route.path === '/support' }">
+            <Icon icon="mdi:help-circle" class="nav-icon" />
+            <span class="nav-text">Feedback/Support</span>
           </router-link>
         </div>
       </nav>
     </aside>
 
     <!-- White Content Area with Inset -->
-    <div class="flex-1 flex flex-col overflow-hidden lg:p-6 lg:pl-0 relative">
-      <div class="flex-1 flex flex-col bg-white lg:rounded-3xl overflow-hidden relative z-10">
+    <div class="content-wrapper">
+      <div class="content-container">
         <!-- Top Bar inside white area -->
-        <header class="bg-white border-b border-gray-200 px-6 py-4">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-4 md:space-x-6">
+        <header class="header">
+          <div class="header-content">
+            <div class="header-left">
               <button 
                 @click="mobileMenuOpen = !mobileMenuOpen"
-                class="lg:hidden text-gray-700 hover:text-primary transition"
+                class="mobile-menu-button"
               >
-                <Icon icon="mdi:menu" class="text-2xl" />
+                <Icon icon="mdi:menu" class="mobile-menu-icon" />
               </button>
               
-              <div class="hidden md:flex items-center space-x-3 px-4 py-2.5 bg-gray-50 rounded-xl border border-gray-200 hover:border-gray-300 transition w-96">
-                <Icon icon="mdi:magnify" class="text-gray-400 text-xl" />
+              <div class="search-box">
+                <Icon icon="mdi:magnify" class="search-icon" />
                 <input 
                   type="text" 
                   placeholder="Search for anything..." 
-                  class="bg-transparent outline-none text-sm font-medium text-gray-700 placeholder-gray-400 w-full"
+                  class="search-input"
                 />
               </div>
             </div>
 
-            <div class="flex items-center space-x-3 md:space-x-4">
-              <div class="hidden md:flex items-center space-x-2 px-4 py-2.5 bg-gray-50 rounded-xl border border-gray-200">
-                <Icon icon="mdi:map-marker" class="text-gray-500" />
-                <select class="bg-transparent outline-none text-sm font-medium text-gray-700 cursor-pointer">
+            <div class="header-right">
+              <div class="location-selector">
+                <Icon icon="mdi:map-marker" class="location-icon" />
+                <select class="location-select">
                   <option>Main Location</option>
                   <option>Store #1</option>
                   <option>Store #2</option>
@@ -157,36 +154,36 @@
                 </select>
               </div>
 
-              <div class="relative notification-menu-container">
+              <div class="notification-menu-container">
                 <button 
                   @click.stop="showNotifications = !showNotifications" 
-                  class="relative w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center hover:bg-gray-100 transition border border-gray-200 notification-menu-trigger"
+                  class="notification-button notification-menu-trigger"
                 >
-                  <Icon icon="mdi:bell-outline" class="text-xl text-gray-600" />
-                  <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
+                  <Icon icon="mdi:bell-outline" class="notification-icon" />
+                  <span class="notification-badge"></span>
                 </button>
 
                 <!-- Notifications Dropdown -->
-                <div v-if="showNotifications" class="absolute right-0 top-full mt-2 bg-white rounded-2xl border border-gray-200 py-2 z-50 w-80 shadow-xl">
-                  <div class="px-4 py-3 border-b border-gray-100">
-                    <h3 class="font-semibold text-gray-900">Notifications</h3>
-                    <p class="text-xs text-gray-500 mt-0.5">You have 3 unread notifications</p>
+                <div v-if="showNotifications" class="dropdown notifications-dropdown">
+                  <div class="dropdown-header">
+                    <h3 class="dropdown-title">Notifications</h3>
+                    <p class="dropdown-subtitle">You have 3 unread notifications</p>
                   </div>
                   
-                  <div class="max-h-96 overflow-y-auto">
+                  <div class="dropdown-content">
                     <!-- Low Stock Notification 1 -->
                     <router-link 
                       to="/inventory/products" 
                       @click="showNotifications = false"
-                      class="flex items-start space-x-3 px-4 py-3 hover:bg-gray-50 transition border-b border-gray-50"
+                      class="notification-item"
                     >
-                      <div class="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <Icon icon="mdi:alert-circle" class="text-xl text-red-500" />
+                      <div class="notification-icon-wrapper notification-danger">
+                        <Icon icon="mdi:alert-circle" class="notification-icon-large" />
                       </div>
-                      <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900">Low Stock Alert</p>
-                        <p class="text-xs text-gray-600 mt-0.5">Wireless Mouse (SKU: TECH-001) is running low. Only 3 units remaining.</p>
-                        <p class="text-xs text-gray-400 mt-1">2 hours ago</p>
+                      <div class="notification-body">
+                        <p class="notification-title">Low Stock Alert</p>
+                        <p class="notification-text">Wireless Mouse (SKU: TECH-001) is running low. Only 3 units remaining.</p>
+                        <p class="notification-time">2 hours ago</p>
                       </div>
                     </router-link>
 
@@ -194,15 +191,15 @@
                     <router-link 
                       to="/inventory/products" 
                       @click="showNotifications = false"
-                      class="flex items-start space-x-3 px-4 py-3 hover:bg-gray-50 transition border-b border-gray-50"
+                      class="notification-item"
                     >
-                      <div class="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <Icon icon="mdi:alert" class="text-xl text-orange-500" />
+                      <div class="notification-icon-wrapper notification-warning">
+                        <Icon icon="mdi:alert" class="notification-icon-large" />
                       </div>
-                      <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900">Stock Warning</p>
-                        <p class="text-xs text-gray-600 mt-0.5">USB Cable Pack (SKU: TECH-045) needs restocking. 8 units left.</p>
-                        <p class="text-xs text-gray-400 mt-1">5 hours ago</p>
+                      <div class="notification-body">
+                        <p class="notification-title">Stock Warning</p>
+                        <p class="notification-text">USB Cable Pack (SKU: TECH-045) needs restocking. 8 units left.</p>
+                        <p class="notification-time">5 hours ago</p>
                       </div>
                     </router-link>
 
@@ -210,24 +207,24 @@
                     <router-link 
                       to="/inventory/products" 
                       @click="showNotifications = false"
-                      class="flex items-start space-x-3 px-4 py-3 hover:bg-gray-50 transition"
+                      class="notification-item"
                     >
-                      <div class="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <Icon icon="mdi:alert-circle" class="text-xl text-red-500" />
+                      <div class="notification-icon-wrapper notification-danger">
+                        <Icon icon="mdi:alert-circle" class="notification-icon-large" />
                       </div>
-                      <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900">Critical Stock Level</p>
-                        <p class="text-xs text-gray-600 mt-0.5">Desk Lamp (SKU: HOME-203) is critically low. Only 1 unit remaining.</p>
-                        <p class="text-xs text-gray-400 mt-1">1 day ago</p>
+                      <div class="notification-body">
+                        <p class="notification-title">Critical Stock Level</p>
+                        <p class="notification-text">Desk Lamp (SKU: HOME-203) is critically low. Only 1 unit remaining.</p>
+                        <p class="notification-time">1 day ago</p>
                       </div>
                     </router-link>
                   </div>
 
-                  <div class="px-4 py-3 border-t border-gray-100">
+                  <div class="dropdown-footer">
                     <router-link 
                       to="/inventory/products"
                       @click="showNotifications = false"
-                      class="text-sm font-medium hover:underline text-center block"
+                      class="dropdown-link"
                       :style="`color: rgb(var(--color-primary-rgb))`"
                     >
                       View All Inventory
@@ -236,39 +233,39 @@
                 </div>
               </div>
 
-              <div class="flex items-center space-x-3 pl-4 border-l border-gray-200 relative user-menu-container">
-                <div class="text-right hidden sm:block">
-                  <div class="text-sm font-semibold text-gray-900">{{ user.name }}</div>
-                  <div class="text-xs text-gray-500">{{ user.role }}</div>
+              <div class="user-menu-container">
+                <div class="user-info">
+                  <div class="user-name">{{ user.name }}</div>
+                  <div class="user-role">{{ user.role }}</div>
                 </div>
-                <button @click.stop="showUserMenu = !showUserMenu" class="w-10 h-10 rounded-xl flex items-center justify-center hover:opacity-80 transition flex-shrink-0 overflow-hidden border-2 border-gray-200 hover:border-primary user-menu-trigger">
-                  <img :src="avatarUrl" alt="User Avatar" class="w-full h-full object-cover" />
+                <button @click.stop="showUserMenu = !showUserMenu" class="user-avatar user-menu-trigger">
+                  <img :src="avatarUrl" alt="User Avatar" class="avatar-image" />
                 </button>
                 
                 <!-- User Dropdown Menu -->
-                <div v-if="showUserMenu" class="absolute right-0 top-full mt-2 bg-white rounded-2xl border border-gray-200 py-2 z-50 w-48">
+                <div v-if="showUserMenu" class="dropdown user-dropdown">
                   <router-link 
                     to="/settings/account" 
                     @click="showUserMenu = false"
-                    class="flex items-center space-x-3 px-4 py-2.5 hover:bg-gray-50 transition text-gray-700"
+                    class="dropdown-item"
                   >
-                    <Icon icon="mdi:account" class="text-xl" />
-                    <span class="text-sm font-medium">My Account</span>
+                    <Icon icon="mdi:account" class="dropdown-item-icon" />
+                    <span class="dropdown-item-text">My Account</span>
                   </router-link>
                   <router-link 
                     to="/settings/theme" 
                     @click="showUserMenu = false"
-                    class="flex items-center space-x-3 px-4 py-2.5 hover:bg-gray-50 transition text-gray-700"
+                    class="dropdown-item"
                   >
-                    <Icon icon="mdi:palette" class="text-xl" />
-                    <span class="text-sm font-medium">Theme</span>
+                    <Icon icon="mdi:palette" class="dropdown-item-icon" />
+                    <span class="dropdown-item-text">Theme</span>
                   </router-link>
                   <button 
                     @click="handleLogout"
-                    class="w-full flex items-center space-x-3 px-4 py-2.5 hover:bg-gray-50 transition text-gray-700"
+                    class="dropdown-item dropdown-button"
                   >
-                    <Icon icon="mdi:logout" class="text-xl" />
-                    <span class="text-sm font-medium">Log Out</span>
+                    <Icon icon="mdi:logout" class="dropdown-item-icon" />
+                    <span class="dropdown-item-text">Log Out</span>
                   </button>
                 </div>
               </div>
@@ -277,7 +274,7 @@
         </header>
 
         <!-- Main Content Area -->
-        <main class="flex-1 overflow-y-auto bg-gray-100 p-6">
+        <main class="main-content">
           <router-view />
         </main>
       </div>
@@ -362,27 +359,706 @@ const handleLogout = () => {
 </script>
 
 <style scoped>
+.layout-container {
+  height: 100vh;
+  background-color: #171923;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+.gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #171923 0%, rgba(23, 25, 35, 0.8) 100%);
+}
+
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 40;
+  backdrop-filter: blur(2px);
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 16rem;
+  background-color: transparent;
+  color: white;
+  overflow-y: auto;
+  position: fixed;
+  inset-y: 0;
+  left: 0;
+  z-index: 40;
+  transition: transform 0.3s ease-in-out;
+  flex-shrink: 0;
+}
+
+.sidebar-hidden {
+  transform: translateX(-100%);
+}
+
+.logo-link {
+  padding: 1.5rem;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-link:focus {
+  outline: none;
+}
+
+.logo-link:focus-visible {
+  box-shadow: 0 0 0 2px rgb(var(--color-primary-rgb));
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.logo-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background-color: rgb(var(--color-primary-rgb));
+}
+
+.icon {
+  font-size: 1.25rem;
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.nav {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease-in-out;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nav-item-active {
+  background-color: rgb(var(--color-primary-rgb));
+  border-left: 4px solid rgb(var(--color-primary-rgb));
+  padding-left: 0.75rem;
+  padding-right: 1rem;
+}
+
+.nav-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.nav-text {
+  font-size: 1rem;
+}
+
+.nav-section {
+  padding-top: 1rem;
+}
+
+.nav-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  color: var(--gray-400);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nav-section-icon {
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+.nav-section-text {
+  font-size: 0.75rem;
+}
+
+.nav-subitem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 2rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease-in-out;
+  color: var(--gray-300);
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.nav-subitem:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nav-subitem-active {
+  color: white;
+  background-color: rgb(var(--color-primary-rgb));
+  border-left: 4px solid rgb(var(--color-primary-rgb));
+  padding-left: 1.75rem;
+  padding-right: 2rem;
+}
+
+.nav-subitem-icon {
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+.nav-subitem-text {
+  font-size: 0.875rem;
+}
+
+/* Content Area */
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+}
+
+.content-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+.header {
+  background-color: white;
+  border-bottom: 1px solid var(--gray-200);
+  padding: 1rem 1.5rem;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.mobile-menu-button {
+  color: var(--gray-700);
+  transition: color 0.15s ease-in-out;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mobile-menu-button:hover {
+  color: rgb(var(--color-primary-rgb));
+}
+
+.mobile-menu-icon {
+  font-size: 1.5rem;
+}
+
+.search-box {
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  background-color: var(--gray-50);
+  border-radius: 0.75rem;
+  border: 1px solid var(--gray-200);
+  transition: border-color 0.15s ease-in-out;
+  width: 24rem;
+}
+
+.search-box:hover {
+  border-color: var(--gray-300);
+}
+
+.search-icon {
+  color: var(--gray-400);
+  font-size: 1.25rem;
+}
+
+.search-input {
+  background-color: transparent;
+  outline: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-700);
+  width: 100%;
+  border: none;
+}
+
+.search-input::placeholder {
+  color: var(--gray-400);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.location-selector {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background-color: var(--gray-50);
+  border-radius: 0.75rem;
+  border: 1px solid var(--gray-200);
+}
+
+.location-icon {
+  color: var(--gray-500);
+}
+
+.location-select {
+  background-color: transparent;
+  outline: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-700);
+  cursor: pointer;
+  border: none;
+}
+
+.notification-menu-container {
+  position: relative;
+}
+
+.notification-button {
+  position: relative;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: var(--gray-50);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease-in-out;
+  border: 1px solid var(--gray-200);
+  cursor: pointer;
+}
+
+.notification-button:hover {
+  background-color: var(--gray-100);
+}
+
+.notification-icon {
+  font-size: 1.25rem;
+  color: var(--gray-600);
+}
+
+.notification-badge {
+  position: absolute;
+  top: 0.375rem;
+  right: 0.375rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--red-500);
+  border-radius: 9999px;
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.5rem;
+  background-color: white;
+  border-radius: 1rem;
+  border: 1px solid var(--gray-200);
+  padding: 0.5rem 0;
+  z-index: 50;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.notifications-dropdown {
+  width: 20rem;
+}
+
+.dropdown-header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.dropdown-title {
+  font-weight: 600;
+  color: var(--gray-900);
+  font-size: 1rem;
+}
+
+.dropdown-subtitle {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  margin-top: 0.125rem;
+}
+
+.dropdown-content {
+  max-height: 24rem;
+  overflow-y: auto;
+}
+
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  transition: background-color 0.15s ease-in-out;
+  border-bottom: 1px solid var(--gray-50);
+  text-decoration: none;
+  color: inherit;
+}
+
+.notification-item:hover {
+  background-color: var(--gray-50);
+}
+
+.notification-icon-wrapper {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.notification-danger {
+  background-color: var(--red-50);
+}
+
+.notification-warning {
+  background-color: var(--orange-50);
+}
+
+.notification-icon-large {
+  font-size: 1.25rem;
+}
+
+.notification-danger .notification-icon-large {
+  color: var(--red-500);
+}
+
+.notification-warning .notification-icon-large {
+  color: var(--orange-500);
+}
+
+.notification-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-900);
+}
+
+.notification-text {
+  font-size: 0.75rem;
+  color: var(--gray-600);
+  margin-top: 0.125rem;
+}
+
+.notification-time {
+  font-size: 0.75rem;
+  color: var(--gray-400);
+  margin-top: 0.25rem;
+}
+
+.dropdown-footer {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--gray-100);
+}
+
+.dropdown-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+  display: block;
+  text-decoration: none;
+}
+
+.dropdown-link:hover {
+  text-decoration: underline;
+}
+
+.user-menu-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--gray-200);
+  position: relative;
+}
+
+.user-info {
+  text-align: right;
+  display: none;
+}
+
+.user-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.user-role {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+}
+
+.user-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 2px solid var(--gray-200);
+  cursor: pointer;
+  background: none;
+  padding: 0;
+}
+
+.user-avatar:hover {
+  opacity: 0.8;
+  border-color: rgb(var(--color-primary-rgb));
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-dropdown {
+  width: 12rem;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1rem;
+  transition: background-color 0.15s ease-in-out;
+  color: var(--gray-700);
+  text-decoration: none;
+}
+
+.dropdown-item:hover {
+  background-color: var(--gray-50);
+}
+
+.dropdown-button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-item-icon {
+  font-size: 1.25rem;
+}
+
+.dropdown-item-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--gray-100);
+  padding: 1.5rem;
+}
+
 /* Custom scrollbar for main content area */
-main::-webkit-scrollbar {
+.main-content::-webkit-scrollbar {
   width: 8px;
 }
 
-main::-webkit-scrollbar-track {
+.main-content::-webkit-scrollbar-track {
   background: #ffffff;
 }
 
-main::-webkit-scrollbar-thumb {
-  background: #e5e7eb;
+.main-content::-webkit-scrollbar-thumb {
+  background: var(--gray-200);
   border-radius: 4px;
 }
 
-main::-webkit-scrollbar-thumb:hover {
-  background: #d1d5db;
+.main-content::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-300);
 }
 
 /* For Firefox */
-main {
+.main-content {
   scrollbar-width: thin;
-  scrollbar-color: #e5e7eb #ffffff;
+  scrollbar-color: var(--gray-200) #ffffff;
+}
+
+/* Responsive Styles */
+@media (min-width: 768px) {
+  .sidebar {
+    width: 5rem;
+    position: static;
+    transform: translateX(0);
+  }
+  
+  .logo-container {
+    justify-content: center;
+  }
+  
+  .logo-text {
+    display: none;
+  }
+  
+  .nav-item {
+    justify-content: center;
+  }
+  
+  .nav-text {
+    display: none;
+  }
+  
+  .nav-section-header {
+    justify-content: center;
+  }
+  
+  .nav-section-text {
+    display: none;
+  }
+  
+  .nav-subitem {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    justify-content: center;
+  }
+  
+  .nav-subitem-active {
+    padding-left: 0.75rem;
+    padding-right: 1rem;
+  }
+  
+  .nav-subitem-text {
+    display: none;
+  }
+  
+  
+  .mobile-menu-button {
+    display: none;
+  }
+  
+  .search-box {
+    display: flex;
+  }
+  
+  .location-selector {
+    display: flex;
+  }
+  
+  .user-info {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    width: 16rem;
+  }
+  
+  .logo-container {
+    justify-content: flex-start;
+  }
+  
+  .logo-text {
+    display: inline;
+  }
+  
+  .nav-item {
+    justify-content: flex-start;
+  }
+  
+  .nav-text {
+    display: inline;
+  }
+  
+  .nav-section-header {
+    justify-content: flex-start;
+  }
+  
+  .nav-section-text {
+    display: inline;
+  }
+  
+  .nav-subitem {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    justify-content: flex-start;
+  }
+  
+  .nav-subitem-active {
+    padding-left: 1.75rem;
+    padding-right: 2rem;
+  }
+  
+  .nav-subitem-text {
+    display: inline;
+  }
+  
+  .content-wrapper {
+    padding: 1.5rem;
+    padding-left: 0;
+  }
+  
+  .content-container {
+    border-radius: 1.5rem;
+  }
+  
+  .mobile-overlay {
+    display: none;
+  }
 }
 </style>
