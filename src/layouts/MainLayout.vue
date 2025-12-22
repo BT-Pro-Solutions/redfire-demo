@@ -125,39 +125,41 @@
     <!-- White Content Area with Inset -->
     <div class="flex-1 flex flex-col overflow-hidden lg:p-6 lg:pl-0 relative">
       <div class="flex-1 flex flex-col bg-white lg:rounded-3xl overflow-hidden relative z-10">
-        <!-- Top Bar inside white area -->
-        <header class="bg-white border-b border-gray-200 px-6 py-4">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-4 md:space-x-6">
-              <button 
-                @click="mobileMenuOpen = !mobileMenuOpen"
-                class="lg:hidden text-gray-700 hover:text-primary transition"
-              >
-                <Icon icon="mdi:menu" class="text-2xl" />
-              </button>
-              
-              <div class="hidden md:flex items-center space-x-3 px-4 py-2.5 bg-gray-50 rounded-xl border border-gray-200 hover:border-gray-300 transition w-96">
-                <Icon icon="mdi:magnify" class="text-gray-400 text-xl" />
-                <input 
-                  type="text" 
-                  placeholder="Search for anything..." 
-                  class="bg-transparent outline-none text-sm font-medium text-gray-700 placeholder-gray-400 w-full"
-                />
-              </div>
-            </div>
-
-            <div class="flex items-center space-x-3 md:space-x-4">
-              <div class="hidden md:flex items-center space-x-2 px-4 py-2.5 bg-gray-50 rounded-xl border border-gray-200">
-                <Icon icon="mdi:map-marker" class="text-gray-500" />
-                <select class="bg-transparent outline-none text-sm font-medium text-gray-700 cursor-pointer">
-                  <option>Main Location</option>
-                  <option>Store #1</option>
-                  <option>Store #2</option>
-                  <option>Warehouse</option>
-                </select>
+        <!-- Top Bar with black background -->
+        <header class="bg-black flex items-stretch">
+          <!-- White container on the left with rounded top-right corner -->
+          <div class="flex-1 bg-white border-b border-gray-200 px-6 py-4 rounded-tr-3xl">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-4 md:space-x-6">
+                <button 
+                  @click="mobileMenuOpen = !mobileMenuOpen"
+                  class="lg:hidden text-gray-700 hover:text-primary transition"
+                >
+                  <Icon icon="mdi:menu" class="text-2xl" />
+                </button>
+                
+                <div class="hidden md:flex items-center space-x-3 px-4 py-2.5 bg-gray-50 rounded-xl border border-gray-200 hover:border-gray-300 transition w-96">
+                  <Icon icon="mdi:magnify" class="text-gray-400 text-xl" />
+                  <input 
+                    type="text" 
+                    placeholder="Search for anything..." 
+                    class="bg-transparent outline-none text-sm font-medium text-gray-700 placeholder-gray-400 w-full"
+                  />
+                </div>
               </div>
 
-              <div class="relative notification-menu-container">
+              <div class="flex items-center space-x-3 md:space-x-4">
+                <div class="hidden md:flex items-center space-x-2 px-4 py-2.5 bg-gray-50 rounded-xl border border-gray-200">
+                  <Icon icon="mdi:map-marker" class="text-gray-500" />
+                  <select class="bg-transparent outline-none text-sm font-medium text-gray-700 cursor-pointer">
+                    <option>Main Location</option>
+                    <option>Store #1</option>
+                    <option>Store #2</option>
+                    <option>Warehouse</option>
+                  </select>
+                </div>
+
+                <div class="relative notification-menu-container">
                 <button 
                   @click.stop="showNotifications = !showNotifications" 
                   class="relative w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center hover:bg-gray-100 transition border border-gray-200 notification-menu-trigger"
@@ -236,44 +238,48 @@
                 </div>
               </div>
 
-              <div class="flex items-center space-x-3 pl-4 border-l border-gray-200 relative user-menu-container">
-                <div class="text-right hidden sm:block">
-                  <div class="text-sm font-semibold text-gray-900">{{ user.name }}</div>
-                  <div class="text-xs text-gray-500">{{ user.role }}</div>
-                </div>
-                <button @click.stop="showUserMenu = !showUserMenu" class="w-10 h-10 rounded-xl flex items-center justify-center hover:opacity-80 transition flex-shrink-0 overflow-hidden border-2 border-gray-200 hover:border-primary user-menu-trigger">
-                  <img :src="avatarUrl" alt="User Avatar" class="w-full h-full object-cover" />
-                </button>
-                
-                <!-- User Dropdown Menu -->
-                <div v-if="showUserMenu" class="absolute right-0 top-full mt-2 bg-white rounded-2xl border border-gray-200 py-2 z-50 w-48">
-                  <router-link 
-                    to="/settings/account" 
-                    @click="showUserMenu = false"
-                    class="flex items-center space-x-3 px-4 py-2.5 hover:bg-gray-50 transition text-gray-700"
-                  >
-                    <Icon icon="mdi:account" class="text-xl" />
-                    <span class="text-sm font-medium">My Account</span>
-                  </router-link>
-                  <router-link 
-                    to="/settings/theme" 
-                    @click="showUserMenu = false"
-                    class="flex items-center space-x-3 px-4 py-2.5 hover:bg-gray-50 transition text-gray-700"
-                  >
-                    <Icon icon="mdi:palette" class="text-xl" />
-                    <span class="text-sm font-medium">Theme</span>
-                  </router-link>
-                  <button 
-                    @click="handleLogout"
-                    class="w-full flex items-center space-x-3 px-4 py-2.5 hover:bg-gray-50 transition text-gray-700"
-                  >
-                    <Icon icon="mdi:logout" class="text-xl" />
-                    <span class="text-sm font-medium">Log Out</span>
+                <div class="flex items-center space-x-3 pl-4 border-l border-gray-200 relative user-menu-container">
+                  <div class="text-right hidden sm:block">
+                    <div class="text-sm font-semibold text-gray-900">{{ user.name }}</div>
+                    <div class="text-xs text-gray-500">{{ user.role }}</div>
+                  </div>
+                  <button @click.stop="showUserMenu = !showUserMenu" class="w-10 h-10 rounded-xl flex items-center justify-center hover:opacity-80 transition flex-shrink-0 overflow-hidden border-2 border-gray-200 hover:border-primary user-menu-trigger">
+                    <img :src="avatarUrl" alt="User Avatar" class="w-full h-full object-cover" />
                   </button>
+                  
+                  <!-- User Dropdown Menu -->
+                  <div v-if="showUserMenu" class="absolute right-0 top-full mt-2 bg-white rounded-2xl border border-gray-200 py-2 z-50 w-48">
+                    <router-link 
+                      to="/settings/account" 
+                      @click="showUserMenu = false"
+                      class="flex items-center space-x-3 px-4 py-2.5 hover:bg-gray-50 transition text-gray-700"
+                    >
+                      <Icon icon="mdi:account" class="text-xl" />
+                      <span class="text-sm font-medium">My Account</span>
+                    </router-link>
+                    <router-link 
+                      to="/settings/theme" 
+                      @click="showUserMenu = false"
+                      class="flex items-center space-x-3 px-4 py-2.5 hover:bg-gray-50 transition text-gray-700"
+                    >
+                      <Icon icon="mdi:palette" class="text-xl" />
+                      <span class="text-sm font-medium">Theme</span>
+                    </router-link>
+                    <button 
+                      @click="handleLogout"
+                      class="w-full flex items-center space-x-3 px-4 py-2.5 hover:bg-gray-50 transition text-gray-700"
+                    >
+                      <Icon icon="mdi:logout" class="text-xl" />
+                      <span class="text-sm font-medium">Log Out</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          
+          <!-- About button on the right in black area -->
+          <AboutButton :animate="true" />
         </header>
 
         <!-- Main Content Area -->
@@ -289,6 +295,7 @@
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { Icon } from '@iconify/vue'
+import AboutButton from '@/components/AboutButton.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -303,7 +310,7 @@ const user = ref({
 })
 
 const avatarUrl = computed(() => localStorage.getItem('customAvatar') || `${import.meta.env.BASE_URL}avatar.png`)
-const bgUrl = computed(() => localStorage.getItem('customBackground') || `${import.meta.env.BASE_URL}bg.avif`)
+const bgUrl = computed(() => localStorage.getItem('customBackground') || `${import.meta.env.BASE_URL}bg-2.png`)
 
 watch(route, () => {
   mobileMenuOpen.value = false

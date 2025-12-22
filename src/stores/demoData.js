@@ -8,6 +8,12 @@ export const useDemoDataStore = defineStore('demoData', {
       image: localStorage.getItem('customAvatar') || `${import.meta.env.BASE_URL}avatar.png`
     },
 
+    company: {
+      name: 'Belmont Beverage',
+      tagline: 'Premium Drinks & Spirits',
+      image: `${import.meta.env.BASE_URL}belmont.jpg`
+    },
+
     weeklyPayments: [
       { day: 'Mon', cash: 1200, check: 800, creditcard: 3500, giftcard: 400 },
       { day: 'Tue', cash: 1500, check: 600, creditcard: 4200, giftcard: 300 },

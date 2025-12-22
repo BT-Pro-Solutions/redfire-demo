@@ -99,28 +99,9 @@
         </div>
         
         <div class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Choose your primary color</label>
-            <div class="flex items-center space-x-4">
-              <input 
-                type="color" 
-                v-model="primaryColor"
-                class="w-16 h-16 rounded-xl border-2 border-gray-200 cursor-pointer"
-              />
-              <div class="flex-1">
-                <input 
-                  type="text" 
-                  v-model="primaryColor"
-                  class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
-                  placeholder="#3b82f6"
-                />
-              </div>
-            </div>
-          </div>
-          
           <!-- Color Presets -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Or choose a preset</label>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Choose your primary color</label>
             <div class="grid grid-cols-8 gap-3">
               <button
                 v-for="color in colorPresets"
@@ -164,7 +145,7 @@ const router = useRouter()
 const avatarInput = ref(null)
 const bgInput = ref(null)
 
-const primaryColor = ref('#3b82f6')
+const primaryColor = ref('#bb0c0c')
 const avatarFile = ref(null)
 const backgroundFile = ref(null)
 
@@ -187,22 +168,22 @@ watch(primaryColor, (newColor) => {
 })
 
 const colorPresets = [
-  { name: 'Blue', value: '#3b82f6' },
-  { name: 'Sky', value: '#0ea5e9' },
-  { name: 'Indigo', value: '#6366f1' },
-  { name: 'Purple', value: '#8b5cf6' },
-  { name: 'Pink', value: '#ec4899' },
-  { name: 'Red', value: '#ef4444' },
-  { name: 'Orange', value: '#f97316' },
-  { name: 'Amber', value: '#f59e0b' },
-  { name: 'Yellow', value: '#eab308' },
-  { name: 'Lime', value: '#84cc16' },
-  { name: 'Green', value: '#22c55e' },
-  { name: 'Emerald', value: '#10b981' },
-  { name: 'Teal', value: '#14b8a6' },
-  { name: 'Cyan', value: '#06b6d4' },
-  { name: 'Slate', value: '#64748b' },
-  { name: 'Gray', value: '#6b7280' },
+  { name: 'Red Fire', value: '#bb0c0c' },
+  { name: 'Crimson', value: '#dc143c' },
+  { name: 'Ruby', value: '#e0115f' },
+  { name: 'Blue', value: '#1d4ed8' },
+  { name: 'Indigo', value: '#4f46e5' },
+  { name: 'Purple', value: '#7c3aed' },
+  { name: 'Violet', value: '#8b5cf6' },
+  { name: 'Fuchsia', value: '#c026d3' },
+  { name: 'Pink', value: '#db2777' },
+  { name: 'Rose', value: '#e11d48' },
+  { name: 'Orange', value: '#ea580c' },
+  { name: 'Amber', value: '#d97706' },
+  { name: 'Green', value: '#16a34a' },
+  { name: 'Emerald', value: '#059669' },
+  { name: 'Teal', value: '#0d9488' },
+  { name: 'Slate', value: '#475569' },
 ]
 
 const previewAvatar = computed(() => {
@@ -216,7 +197,7 @@ const previewBackground = computed(() => {
   if (backgroundFile.value) {
     return URL.createObjectURL(backgroundFile.value)
   }
-  return localStorage.getItem('customBackground') || `${import.meta.env.BASE_URL}bg.avif`
+  return localStorage.getItem('customBackground') || `${import.meta.env.BASE_URL}bg-2.png`
 })
 
 const handleAvatarChange = (event) => {
@@ -280,7 +261,7 @@ const resetToDefaults = () => {
     localStorage.removeItem('customBackground')
     document.documentElement.style.removeProperty('--color-primary')
     
-    primaryColor.value = '#3b82f6'
+    primaryColor.value = '#bb0c0c'
     avatarFile.value = null
     backgroundFile.value = null
     

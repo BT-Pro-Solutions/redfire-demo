@@ -1,11 +1,9 @@
 <template>
-  <div class="min-h-screen bg-dark-bg flex items-center justify-center p-4 relative" 
+  <div class="min-h-screen bg-dark-bg flex flex-col items-center justify-center p-4 relative" 
   :style="{ backgroundImage: `url(${bgUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
-    <!-- Dark overlay -->
-    <div class="absolute inset-0 bg-black/40"></div>
-    
+    <img src="/redfire-logo-white.png" alt="bg" class="" width="200"><br>
     <!-- Login Box -->
-    <div class="bg-white rounded-lg shadow-2xl w-full max-w-md p-8 relative z-10">
+    <div class="bg-white rounded-lg w-full max-w-md p-8 relative z-10">
       <!-- Logo/Title Area -->
       <div class="text-center mb-8">
         <div class="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4">
@@ -87,7 +85,7 @@ const email = ref('demo@redfire.com')
 const password = ref('saldkfja;lskdfjslakf')
 const rememberMe = ref(false)
 
-const bgUrl = computed(() => localStorage.getItem('customBackground') || `${import.meta.env.BASE_URL}bg.avif`)
+const bgUrl = computed(() => localStorage.getItem('customBackground') || `${import.meta.env.BASE_URL}bg-2.png`)
 
 onMounted(() => {
   // Apply custom primary color if set

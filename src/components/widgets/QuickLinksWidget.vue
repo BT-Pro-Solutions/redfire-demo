@@ -16,12 +16,12 @@
           class="flex flex-col items-center justify-center p-4 rounded-xl transition bg-gray-50 hover:bg-gray-100 border border-transparent hover:border-gray-200"
         >
           <div 
-            class="w-12 h-12 rounded-xl flex items-center justify-center mb-2"
+            class="w-10 h-10 rounded-xl flex items-center justify-center mb-2"
             :class="`bg-${link.color}-100`"
           >
             <Icon 
               :icon="link.icon" 
-              class="text-2xl"
+              class="text-xl"
               :class="`text-${link.color}-600`"
             />
           </div>
