@@ -5,6 +5,7 @@
 @layer base {
   :root {
     --color-primary-rgb: 187 12 12; /* #bb0c0c as RGB */
+    --color-primary-dark-rgb: 139 9 9; /* Darker variation ~74% */
   }
   
   body {

@@ -15,7 +15,7 @@ export default {
         'border': '#e5e7eb',
         'primary': {
           DEFAULT: 'rgb(var(--color-primary-rgb) / <alpha-value>)',
-          dark: '#2563eb',
+          dark: 'rgb(var(--color-primary-dark-rgb) / <alpha-value>)',
         },
       }
     },

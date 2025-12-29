@@ -164,6 +164,12 @@ watch(primaryColor, (newColor) => {
   const rgb = hexToRgb(newColor)
   if (rgb) {
     document.documentElement.style.setProperty('--color-primary-rgb', `${rgb.r} ${rgb.g} ${rgb.b}`)
+    const darkRgb = {
+      r: Math.round(rgb.r * 0.74),
+      g: Math.round(rgb.g * 0.74),
+      b: Math.round(rgb.b * 0.74)
+    }
+    document.documentElement.style.setProperty('--color-primary-dark-rgb', `${darkRgb.r} ${darkRgb.g} ${darkRgb.b}`)
   }
 })
 
@@ -190,14 +196,14 @@ const previewAvatar = computed(() => {
   if (avatarFile.value) {
     return URL.createObjectURL(avatarFile.value)
   }
-  return localStorage.getItem('customAvatar') || `${import.meta.env.BASE_URL}avatar.png`
+  return localStorage.getItem('customAvatar_v2') || `${import.meta.env.BASE_URL}avatar.png`
 })
 
 const previewBackground = computed(() => {
   if (backgroundFile.value) {
     return URL.createObjectURL(backgroundFile.value)
   }
-  return localStorage.getItem('customBackground') || `${import.meta.env.BASE_URL}bg-2.png`
+  return localStorage.getItem('customBackground_v2') || `${import.meta.env.BASE_URL}bg-4.png`
 })
 
 const handleAvatarChange = (event) => {
@@ -220,17 +226,23 @@ const handleBackgroundChange = (event) => {
 
 const saveSettings = async () => {
   // Save primary color
-  localStorage.setItem('primaryColor', primaryColor.value)
+  localStorage.setItem('primaryColor_v2', primaryColor.value)
   const rgb = hexToRgb(primaryColor.value)
   if (rgb) {
     document.documentElement.style.setProperty('--color-primary-rgb', `${rgb.r} ${rgb.g} ${rgb.b}`)
+    const darkRgb = {
+      r: Math.round(rgb.r * 0.74),
+      g: Math.round(rgb.g * 0.74),
+      b: Math.round(rgb.b * 0.74)
+    }
+    document.documentElement.style.setProperty('--color-primary-dark-rgb', `${darkRgb.r} ${darkRgb.g} ${darkRgb.b}`)
   }
   
   // Save avatar if changed
   if (avatarFile.value) {
     const reader = new FileReader()
     reader.onload = (e) => {
-      localStorage.setItem('customAvatar', e.target.result)
+      localStorage.setItem('customAvatar_v2', e.target.result)
       // Update demo data store avatar
       const user = JSON.parse(localStorage.getItem('user') || '{}')
       user.avatar = e.target.result
@@ -244,7 +256,7 @@ const saveSettings = async () => {
     // Save background if changed
     const reader = new FileReader()
     reader.onload = (e) => {
-      localStorage.setItem('customBackground', e.target.result)
+      localStorage.setItem('customBackground_v2', e.target.result)
       window.location.reload()
     }
     reader.readAsDataURL(backgroundFile.value)
@@ -256,9 +268,9 @@ const saveSettings = async () => {
 
 const resetToDefaults = () => {
   if (confirm('Reset all theme settings to defaults?')) {
-    localStorage.removeItem('primaryColor')
-    localStorage.removeItem('customAvatar')
-    localStorage.removeItem('customBackground')
+    localStorage.removeItem('primaryColor_v2')
+    localStorage.removeItem('customAvatar_v2')
+    localStorage.removeItem('customBackground_v2')
     document.documentElement.style.removeProperty('--color-primary')
     
     primaryColor.value = '#bb0c0c'
@@ -271,12 +283,18 @@ const resetToDefaults = () => {
 
 onMounted(() => {
   // Load saved settings
-  const savedColor = localStorage.getItem('primaryColor')
+  const savedColor = localStorage.getItem('primaryColor_v2')
   if (savedColor) {
     primaryColor.value = savedColor
     const rgb = hexToRgb(savedColor)
     if (rgb) {
       document.documentElement.style.setProperty('--color-primary-rgb', `${rgb.r} ${rgb.g} ${rgb.b}`)
+      const darkRgb = {
+        r: Math.round(rgb.r * 0.74),
+        g: Math.round(rgb.g * 0.74),
+        b: Math.round(rgb.b * 0.74)
+      }
+      document.documentElement.style.setProperty('--color-primary-dark-rgb', `${darkRgb.r} ${darkRgb.g} ${darkRgb.b}`)
     }
   }
 })

@@ -168,9 +168,16 @@ const handleHover = () => {
 </script>
 
 <style scoped>
+
 .about-button-wrapper {
-  display: flex;
+  display: none;
   align-items: stretch;
+}
+
+@media (min-width: 768px) {
+  .about-button-wrapper {
+    display: flex;
+  }
 }
 
 .about-button {

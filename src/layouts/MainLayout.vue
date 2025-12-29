@@ -18,22 +18,22 @@
     >
       <router-link 
         to="/"
-        class="px-6 py-6 h-[88px] flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
+        class="company-name px-6 py-6 h-[88px] flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
         style="display: block;"
         tabindex="0"
       >
         <div class="flex items-center space-x-3 md:justify-center lg:justify-start w-full">
-          <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg" style="background-color: rgb(var(--color-primary-rgb));">
+          <div class="w-10 h-10 flex items-center justify-center flex-shrink-0 shadow-lg rounded-lg" style="background-color: rgb(var(--color-primary-rgb));">
             <Icon icon="mdi:storefront" class="text-xl" />
           </div>
           <span class="text-xl font-bold md:hidden lg:inline">TestCorp</span>
         </div>
       </router-link>
 
-      <nav class="p-4 space-y-1">
+      <nav class="space-y-1">
         <router-link
           to="/"
-          class="flex items-center space-x-3 py-3 rounded-lg hover:bg-white/5 transition md:justify-center lg:justify-start"
+          class="flex items-center space-x-3 py-3 hover:bg-white/5 transition md:justify-center lg:justify-start"
           :class="$route.name === 'Dashboard' ? 'pl-3 pr-4' : 'px-4'"
           :style="$route.name === 'Dashboard' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''"
         >
@@ -46,15 +46,15 @@
             <Icon icon="mdi:package-variant" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline">Inventory</span>
           </div>
-          <router-link to="/inventory/categories" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/inventory/categories' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/inventory/categories' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
+          <router-link to="/inventory/categories" class="flex items-center space-x-3 py-2.5 hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/inventory/categories' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/inventory/categories' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
             <Icon icon="mdi:shape" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Categories</span>
           </router-link>
-          <router-link to="/inventory/groups" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/inventory/groups' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/inventory/groups' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
+          <router-link to="/inventory/groups" class="flex items-center space-x-3 py-2.5 hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/inventory/groups' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/inventory/groups' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
             <Icon icon="mdi:group" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Groups</span>
           </router-link>
-          <router-link to="/inventory/products" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/inventory/products' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/inventory/products' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
+          <router-link to="/inventory/products" class="flex items-center space-x-3 py-2.5 hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/inventory/products' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/inventory/products' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
             <Icon icon="mdi:shopping" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Retail Products</span>
           </router-link>
@@ -65,11 +65,11 @@
             <Icon icon="mdi:account-cog" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline">Management</span>
           </div>
-          <router-link to="/management/customers" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/management/customers' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/management/customers' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
+          <router-link to="/management/customers" class="flex items-center space-x-3 py-2.5 hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/management/customers' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/management/customers' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
             <Icon icon="mdi:account-group" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Customers</span>
           </router-link>
-          <router-link to="/management/users" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/management/users' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/management/users' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
+          <router-link to="/management/users" class="flex items-center space-x-3 py-2.5 hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/management/users' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/management/users' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
             <Icon icon="mdi:account-multiple" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Users</span>
           </router-link>
@@ -80,15 +80,15 @@
             <Icon icon="mdi:cash-multiple" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline">Payment</span>
           </div>
-          <router-link to="/payment/cash" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/payment/cash' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/payment/cash' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
+          <router-link to="/payment/cash" class="flex items-center space-x-3 py-2.5 hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/payment/cash' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/payment/cash' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
             <Icon icon="mdi:cash" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Cash</span>
           </router-link>
-          <router-link to="/payment/check" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/payment/check' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/payment/check' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
+          <router-link to="/payment/check" class="flex items-center space-x-3 py-2.5 hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/payment/check' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/payment/check' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
             <Icon icon="mdi:checkbook" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Check</span>
           </router-link>
-          <router-link to="/payment/credit-card" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/payment/credit-card' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/payment/credit-card' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
+          <router-link to="/payment/credit-card" class="flex items-center space-x-3 py-2.5 hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/payment/credit-card' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/payment/credit-card' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
             <Icon icon="mdi:credit-card" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Credit Card</span>
           </router-link>
@@ -99,22 +99,22 @@
             <Icon icon="mdi:cart" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline">Purchase</span>
           </div>
-          <a href="#" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start">
+          <a href="#" class="flex items-center space-x-3 px-8 py-2.5 hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start">
             <Icon icon="mdi:cart-remove" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Canceled Purchases</span>
           </a>
-          <router-link to="/purchase/completed" class="flex items-center space-x-3 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/purchase/completed' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/purchase/completed' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
+          <router-link to="/purchase/completed" class="flex items-center space-x-3 py-2.5 hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/purchase/completed' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/purchase/completed' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
             <Icon icon="mdi:cart-check" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Completed Purchases</span>
           </router-link>
-          <a href="#" class="flex items-center space-x-3 px-8 py-2.5 rounded-lg hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start">
+          <a href="#" class="flex items-center space-x-3 px-8 py-2.5 hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start">
             <Icon icon="mdi:cart-outline" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Open Purchases</span>
           </a>
         </div>
 
         <div class="pt-4 pb-4">
-          <router-link to="/support" class="flex items-center space-x-3 py-3 rounded-lg hover:bg-white/5 transition md:justify-center lg:justify-start" :class="[$route.path === '/support' ? 'text-white pl-3 pr-4' : 'px-4']" :style="$route.path === '/support' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
+          <router-link to="/support" class="flex items-center space-x-3 py-3 hover:bg-white/5 transition md:justify-center lg:justify-start" :class="[$route.path === '/support' ? 'text-white pl-3 pr-4' : 'px-4']" :style="$route.path === '/support' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
             <Icon icon="mdi:help-circle" class="text-xl flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Feedback/Support</span>
           </router-link>
@@ -138,7 +138,7 @@
                   <Icon icon="mdi:menu" class="text-2xl" />
                 </button>
                 
-                <div class="hidden md:flex items-center space-x-3 px-4 py-2.5 bg-gray-50 rounded-xl border border-gray-200 hover:border-gray-300 transition w-96">
+                <div class="hidden md:flex items-center space-x-3 px-4 py-2.5 bg-gray-50 rounded-xl border border-gray-200 hover:border-gray-300 transition w-48 lg:w-96">
                   <Icon icon="mdi:magnify" class="text-gray-400 text-xl" />
                   <input 
                     type="text" 
@@ -309,8 +309,8 @@ const user = ref({
   role: 'Admin'
 })
 
-const avatarUrl = computed(() => localStorage.getItem('customAvatar') || `${import.meta.env.BASE_URL}avatar.png`)
-const bgUrl = computed(() => localStorage.getItem('customBackground') || `${import.meta.env.BASE_URL}bg-2.png`)
+const avatarUrl = computed(() => localStorage.getItem('customAvatar_v2') || `${import.meta.env.BASE_URL}avatar.png`)
+const bgUrl = computed(() => localStorage.getItem('customBackground_v2') || `${import.meta.env.BASE_URL}bg-4.png`)
 
 watch(route, () => {
   mobileMenuOpen.value = false
@@ -339,7 +339,7 @@ onMounted(() => {
   }
   
   // Apply custom primary color if set
-  const savedColor = localStorage.getItem('primaryColor')
+  const savedColor = localStorage.getItem('primaryColor_v2')
   if (savedColor) {
     const hexToRgb = (hex) => {
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
@@ -352,6 +352,12 @@ onMounted(() => {
     const rgb = hexToRgb(savedColor)
     if (rgb) {
       document.documentElement.style.setProperty('--color-primary-rgb', `${rgb.r} ${rgb.g} ${rgb.b}`)
+      const darkRgb = {
+        r: Math.round(rgb.r * 0.74),
+        g: Math.round(rgb.g * 0.74),
+        b: Math.round(rgb.b * 0.74)
+      }
+      document.documentElement.style.setProperty('--color-primary-dark-rgb', `${darkRgb.r} ${darkRgb.g} ${darkRgb.b}`)
     }
   }
   
@@ -391,5 +397,21 @@ main::-webkit-scrollbar-thumb:hover {
 main {
   scrollbar-width: thin;
   scrollbar-color: #e5e7eb #ffffff;
+}
+
+.router-link-exact-active:not(.company-name) {
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    width: 30px;
+    height: 100px;
+    background: radial-gradient(ellipse at right, rgb(var(--color-primary-rgb)) 0%, transparent 70%);
+  }
 }
 </style>

@@ -228,11 +228,11 @@ const handleAddWidget = (widgetConfig) => {
 }
 
 const saveLayout = () => {
-  localStorage.setItem('dashboardLayout', JSON.stringify(widgetLayout.value))
+  localStorage.setItem('dashboardLayout_v2', JSON.stringify(widgetLayout.value))
 }
 
 onMounted(() => {
-  const savedLayout = localStorage.getItem('dashboardLayout')
+  const savedLayout = localStorage.getItem('dashboardLayout_v2')
   if (savedLayout) {
     try {
       widgetLayout.value = JSON.parse(savedLayout)
