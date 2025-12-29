@@ -1,7 +1,7 @@
 <template>
   <div>
     <DataTable
-      title="Completed Purchases"
+      title="Open Purchases"
       addButtonLabel="Purchase"
       :columns="columns"
       :data="purchases"
@@ -57,15 +57,14 @@ const columns = [
   { key: 'items', label: 'Items' },
   { key: 'total', label: 'Total' },
   { key: 'paymentMethod', label: 'Payment' },
-  { key: 'completedDate', label: 'Completed' }
+  { key: 'status', label: 'Status' }
 ]
 
 const purchases = [
-  { id: 1, orderId: 'ORD-2024-001', customer: 'John Anderson', date: '2024-12-01', items: 3, total: '$145.97', paymentMethod: 'Credit Card', completedDate: '2024-12-02' },
-  { id: 2, orderId: 'ORD-2024-002', customer: 'Emily Chen', date: '2024-12-01', items: 2, total: '$89.98', paymentMethod: 'PayPal', completedDate: '2024-12-02' },
-  { id: 3, orderId: 'ORD-2024-003', customer: 'Michael Rodriguez', date: '2024-12-02', items: 5, total: '$234.50', paymentMethod: 'Credit Card', completedDate: '2024-12-03' },
-  { id: 4, orderId: 'ORD-2024-004', customer: 'Sarah Thompson', date: '2024-12-02', items: 1, total: '$34.99', paymentMethod: 'Cash', completedDate: '2024-12-02' },
-  { id: 5, orderId: 'ORD-2024-005', customer: 'David Kim', date: '2024-12-03', items: 4, total: '$189.96', paymentMethod: 'Gift Card', completedDate: '2024-12-04' }
+  { id: 1, orderId: 'ORD-2024-201', customer: 'Jennifer Lee', date: '2024-12-06', items: 3, total: '$156.50', paymentMethod: 'Credit Card', status: 'Processing' },
+  { id: 2, orderId: 'ORD-2024-202', customer: 'Kevin Martinez', date: '2024-12-06', items: 2, total: '$78.98', paymentMethod: 'PayPal', status: 'Pending Payment' },
+  { id: 3, orderId: 'ORD-2024-203', customer: 'Laura Garcia', date: '2024-12-05', items: 5, total: '$289.75', paymentMethod: 'Credit Card', status: 'Awaiting Shipment' },
+  { id: 4, orderId: 'ORD-2024-204', customer: 'Mark Taylor', date: '2024-12-05', items: 1, total: '$45.00', paymentMethod: 'Cash', status: 'Processing' },
+  { id: 5, orderId: 'ORD-2024-205', customer: 'Nancy White', date: '2024-12-04', items: 4, total: '$210.00', paymentMethod: 'Gift Card', status: 'On Hold' }
 ]
 </script>
-

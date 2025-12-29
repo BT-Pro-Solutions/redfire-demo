@@ -44,9 +44,19 @@ const routes = [
         component: () => import('../views/management/Users.vue')
       },
       {
+        path: 'purchase/canceled',
+        name: 'CanceledPurchases',
+        component: () => import('../views/purchase/CanceledPurchases.vue')
+      },
+      {
         path: 'purchase/completed',
         name: 'CompletedPurchases',
         component: () => import('../views/purchase/CompletedPurchases.vue')
+      },
+      {
+        path: 'purchase/open',
+        name: 'OpenPurchases',
+        component: () => import('../views/purchase/OpenPurchases.vue')
       },
       {
         path: 'payment/cash',

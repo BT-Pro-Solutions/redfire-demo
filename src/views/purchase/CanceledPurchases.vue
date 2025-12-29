@@ -1,7 +1,7 @@
 <template>
   <div>
     <DataTable
-      title="Completed Purchases"
+      title="Canceled Purchases"
       addButtonLabel="Purchase"
       :columns="columns"
       :data="purchases"
@@ -57,15 +57,14 @@ const columns = [
   { key: 'items', label: 'Items' },
   { key: 'total', label: 'Total' },
   { key: 'paymentMethod', label: 'Payment' },
-  { key: 'completedDate', label: 'Completed' }
+  { key: 'canceledDate', label: 'Canceled' },
+  { key: 'reason', label: 'Reason' }
 ]
 
 const purchases = [
-  { id: 1, orderId: 'ORD-2024-001', customer: 'John Anderson', date: '2024-12-01', items: 3, total: '$145.97', paymentMethod: 'Credit Card', completedDate: '2024-12-02' },
-  { id: 2, orderId: 'ORD-2024-002', customer: 'Emily Chen', date: '2024-12-01', items: 2, total: '$89.98', paymentMethod: 'PayPal', completedDate: '2024-12-02' },
-  { id: 3, orderId: 'ORD-2024-003', customer: 'Michael Rodriguez', date: '2024-12-02', items: 5, total: '$234.50', paymentMethod: 'Credit Card', completedDate: '2024-12-03' },
-  { id: 4, orderId: 'ORD-2024-004', customer: 'Sarah Thompson', date: '2024-12-02', items: 1, total: '$34.99', paymentMethod: 'Cash', completedDate: '2024-12-02' },
-  { id: 5, orderId: 'ORD-2024-005', customer: 'David Kim', date: '2024-12-03', items: 4, total: '$189.96', paymentMethod: 'Gift Card', completedDate: '2024-12-04' }
+  { id: 1, orderId: 'ORD-2024-101', customer: 'Alice Johnson', date: '2024-12-05', items: 2, total: '$67.50', paymentMethod: 'Credit Card', canceledDate: '2024-12-05', reason: 'Customer Request' },
+  { id: 2, orderId: 'ORD-2024-102', customer: 'Bob Wilson', date: '2024-12-04', items: 1, total: '$29.99', paymentMethod: 'PayPal', canceledDate: '2024-12-04', reason: 'Out of Stock' },
+  { id: 3, orderId: 'ORD-2024-103', customer: 'Carol Davis', date: '2024-12-03', items: 3, total: '$124.97', paymentMethod: 'Credit Card', canceledDate: '2024-12-03', reason: 'Duplicate Order' },
+  { id: 4, orderId: 'ORD-2024-104', customer: 'Daniel Brown', date: '2024-12-02', items: 4, total: '$198.00', paymentMethod: 'Cash', canceledDate: '2024-12-02', reason: 'Payment Failed' }
 ]
 </script>
-

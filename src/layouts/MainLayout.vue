@@ -99,18 +99,18 @@
             <Icon icon="mdi:cart" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline">Purchase</span>
           </div>
-          <a href="#" class="flex items-center space-x-3 px-8 py-2.5 hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start">
+          <router-link to="/purchase/canceled" class="flex items-center space-x-3 py-2.5 hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/purchase/canceled' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/purchase/canceled' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
             <Icon icon="mdi:cart-remove" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Canceled Purchases</span>
-          </a>
+          </router-link>
           <router-link to="/purchase/completed" class="flex items-center space-x-3 py-2.5 hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/purchase/completed' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/purchase/completed' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
             <Icon icon="mdi:cart-check" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Completed Purchases</span>
           </router-link>
-          <a href="#" class="flex items-center space-x-3 px-8 py-2.5 hover:bg-white/5 transition text-gray-300 md:px-4 md:justify-center lg:px-8 lg:justify-start">
+          <router-link to="/purchase/open" class="flex items-center space-x-3 py-2.5 hover:bg-white/5 transition text-gray-300 md:justify-center lg:justify-start" :class="[$route.path === '/purchase/open' ? 'text-white pl-7 pr-8 md:pl-3 md:pr-4 lg:pl-7 lg:pr-8' : 'px-8 md:px-4 lg:px-8']" :style="$route.path === '/purchase/open' ? 'background-color: rgb(var(--color-primary-rgb)); border-left: 4px solid rgb(var(--color-primary-rgb));' : ''">
             <Icon icon="mdi:cart-outline" class="text-lg flex-shrink-0" />
             <span class="md:hidden lg:inline text-sm">Open Purchases</span>
-          </a>
+          </router-link>
         </div>
 
         <div class="pt-4 pb-4">
