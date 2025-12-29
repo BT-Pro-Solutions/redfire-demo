@@ -10,7 +10,7 @@
         <div class="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" :style="{ backgroundColor: primaryColor }">
           <Icon icon="mdi:storefront" class="text-3xl text-white" />
         </div>
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">TestCorp Demo</h1>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Belmont Demo</h1>
         <p class="text-gray-600">E-Commerce Reporting Platform</p>
       </div>
 

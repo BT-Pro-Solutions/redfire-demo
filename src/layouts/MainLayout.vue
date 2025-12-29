@@ -26,7 +26,7 @@
           <div class="w-10 h-10 flex items-center justify-center flex-shrink-0 shadow-lg rounded-lg" style="background-color: rgb(var(--color-primary-rgb));">
             <Icon icon="mdi:storefront" class="text-xl" />
           </div>
-          <span class="text-xl font-bold md:hidden lg:inline">TestCorp</span>
+          <span class="text-xl font-bold md:hidden lg:inline">Belmont</span>
         </div>
       </router-link>
 
@@ -399,7 +399,7 @@ main {
   scrollbar-color: #e5e7eb #ffffff;
 }
 
-.router-link-exact-active:not(.company-name) {
+nav .router-link-exact-active:not(.company-name) {
   position: relative;
 
   &::after {

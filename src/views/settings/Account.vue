@@ -38,7 +38,7 @@
       <div class="mt-6 flex justify-end">
         <button 
           @click="saveAccount"
-          class="px-6 py-3 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white rounded-xl transition"
+          class="px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl transition"
         >
           Save Changes
         </button>
