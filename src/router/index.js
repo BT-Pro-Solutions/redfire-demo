@@ -94,16 +94,21 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.getItem('user')
   
+  // Allow direct access to login page regardless of auth status
+  if (to.name === 'Login') {
+    next()
+    return
+  }
+  
   // If no route matched and no auth, go to login
   if (!to.name && !isAuthenticated) {
     next({ name: 'Login' })
     return
   }
   
-  if (to.name !== 'Login' && !isAuthenticated) {
+  // Protect all other routes - redirect to login if not authenticated
+  if (!isAuthenticated) {
     next({ name: 'Login' })
-  } else if (to.name === 'Login' && isAuthenticated) {
-    next({ name: 'Dashboard' })
   } else {
     next()
   }
